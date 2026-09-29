@@ -131,6 +131,11 @@ export const DATA = {
           href: "https://pysunn.me/docs-beolmuri-ai/",
           icon: <Icons.globe className="size-3" />,
         },
+        {
+          type: "Source",
+          href: "https://github.com/mornye-minor-gallery/PetAI-AI",
+          icon: <Icons.github className="size-3" />,
+        },
       ],
       image: "",
       video: "",
@@ -162,6 +167,11 @@ export const DATA = {
           type: "Source",
           href: "https://github.com/trit-ajou/TOWA",
           icon: <Icons.github className="size-3" />,
+        },
+        {
+          type: "SOFTCON",
+          href: "https://softcon.ajou.ac.kr/works/works_prev.asp?uid=2330&wTerm=2026-1",
+          icon: <Icons.globe className="size-3" />,
         },
       ],
       image: "",

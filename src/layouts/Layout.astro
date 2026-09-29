@@ -10,6 +10,7 @@ interface Props {
   description?: string;
   image?: string;
   canonicalURL?: string;
+  wide?: boolean;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   description = DATA.description,
   image,
   canonicalURL = Astro.url.href,
+  wide = false,
 } = Astro.props;
 
 const pageTitle = title
@@ -156,7 +158,7 @@ const { baseFontSize } = CONFIG.typography;
     </div>
 
     <!-- Main content wrapper - matches template's z-10 container exactly -->
-    <div class="relative z-10 max-w-2xl mx-auto py-12 pb-24 sm:py-24 px-6">
+    <div class={`relative z-10 ${wide ? "max-w-4xl" : "max-w-2xl"} mx-auto py-12 pb-24 sm:py-24 px-6`}>
       <slot />
     </div>
 
