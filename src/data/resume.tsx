@@ -11,7 +11,7 @@ export const DATA = {
     "LLM 최적화 관련 연구와 AI를 활용한 서비스 개발 모두에 관심이 있습니다. 현재는 AI·SW 마에스트로 연수생 프로젝트 활동을 진행하고 있습니다.",
   summary:
     "아주대학교에서 소프트웨어 및 컴퓨터공학을 전공합니다. 학부연구생으로 비전 언어 모델의 공간 추론 편향을 연구했고, AI·SW 마에스트로에서 iOS 온디바이스 AI 캐릭터 앱을 개발하고 있습니다.",
-  researchInterests: "LLM 추론 최적화, 비전 언어 모델, 온디바이스 AI, GPU 컴퓨팅",
+  researchInterests: "LLM Inference Optimization, Vision-Language Models, On-Device AI, GPU Computing",
   avatarUrl: "",
   ogImage: "",
   sections: {
