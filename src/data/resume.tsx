@@ -14,11 +14,12 @@ import { Astro } from "@/components/ui/svgs/astro";
 export const DATA = {
   name: "김민석",
   initials: "김",
+  headline: "안녕하세요,\nPysunn의 블로그입니다.",
   url: "https://alexmercer.dev",
   location: "Austin, TX",
   locationLink: "https://www.google.com/maps/place/austin+tx",
   description:
-    "Full-stack engineer turned indie founder. I love building developer tools, fast UIs, and products people actually use.",
+    "LLM 최적화 관련 연구와 AI를 활용한 서비스 개발 모두에 관심이 있습니다. 현재는 AI·SW 마에스트로 연수생 프로젝트 활동을 진행하고 있습니다.",
   summary:
     "In early 2023, I left a senior engineering role to go all-in on building my own SaaS products. Before that, [I completed a double degree in computer science and business](/#education), [interned at companies like Stripe and Cloudflare](/#work), and [competed in 18+ hackathons](/#hackathons). I also spent a summer in San Francisco as part of a founder residency focused on shipping fast and finding early customers.",
   avatarUrl: "",
