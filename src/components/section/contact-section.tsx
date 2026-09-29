@@ -25,8 +25,13 @@ export default function ContactSection() {
         <p className="mx-auto max-w-lg text-muted-foreground text-balance">
           {DATA.sections.contact.text}
         </p>
+        <a
+          href={`mailto:${DATA.contact.email}`}
+          className="rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {DATA.contact.email}
+        </a>
       </div>
     </div>
   );
 }
-

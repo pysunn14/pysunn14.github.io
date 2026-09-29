@@ -36,11 +36,9 @@ const jsonLd = JSON.stringify({
   datePublished: publishedAt,
   dateModified: publishedAt,
   description: summary,
-  image: image
-    ? image.startsWith("http")
-      ? image
-      : `${DATA.url}${image}`
-    : `${DATA.url}/og_image.png`,
+  ...(image && {
+    image: image.startsWith("http") ? image : `${DATA.url}${image}`,
+  }),
   url: `${DATA.url}/blog/${slug}`,
   author: {
     "@type": "Person",

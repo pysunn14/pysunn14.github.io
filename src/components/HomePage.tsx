@@ -5,8 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
 import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
-import HackathonsSection from "@/components/section/hackathons-section";
-import PhotosSection from "@/components/section/photos-section";
+import HonorsSection from "@/components/section/honors-section";
 import ProjectsSection from "@/components/section/projects-section";
 import WorkSection from "@/components/section/work-section";
 import { ArrowUpRight } from "lucide-react";
@@ -103,20 +102,35 @@ const sectionComponents: Record<string, React.ReactNode> = {
     </section>
   ),
   projects: (
-    <section id="projects">
-      <BlurFade delay={BLUR_FADE_DELAY * 11}>
-        <ProjectsSection />
-      </BlurFade>
+    <BlurFade delay={BLUR_FADE_DELAY * 11}>
+      <ProjectsSection />
+    </BlurFade>
+  ),
+  publication: (
+    <section id="publication">
+      <div className="flex flex-col gap-y-6">
+        <BlurFade delay={BLUR_FADE_DELAY * 12}>
+          <h2 className="text-xl font-bold">{DATA.sections.publication.heading}</h2>
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 13}>
+          <article className="flex flex-col gap-2 border border-border rounded-xl p-6">
+            <div className="flex flex-col gap-1 sm:flex-row sm:justify-between sm:gap-4">
+              <h3 className="font-semibold">{DATA.publication.title}</h3>
+              <time className="text-xs text-muted-foreground shrink-0">{DATA.publication.date}</time>
+            </div>
+            <p className="text-sm">{DATA.publication.authors}</p>
+            <p className="text-sm text-muted-foreground">{DATA.publication.venue}</p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{DATA.publication.description}</p>
+          </article>
+        </BlurFade>
+      </div>
     </section>
   ),
-  hackathons: (
-    <section id="hackathons">
-      <BlurFade delay={BLUR_FADE_DELAY * 13}>
-        <HackathonsSection />
-      </BlurFade>
-    </section>
+  honors: (
+    <BlurFade delay={BLUR_FADE_DELAY * 13}>
+      <HonorsSection />
+    </BlurFade>
   ),
-  photos: <PhotosSection />,
   contact: (
     <section id="contact">
       <BlurFade delay={BLUR_FADE_DELAY * 16}>

@@ -3,9 +3,8 @@ export const CONFIG = {
   // Site Settings
   // ---------------------------------------------------------------------------
   site: {
-    url: "https://alexmercer.dev",
-    locale: "en_US",
-    twitterHandle: "@alexmercer_dev",
+    url: "https://pysunn.me",
+    locale: "ko_KR",
   },
 
   // ---------------------------------------------------------------------------
@@ -13,7 +12,7 @@ export const CONFIG = {
   // ---------------------------------------------------------------------------
   seo: {
     titleTemplate: "%s | %n", // %s = page title, %n = DATA.name
-    twitterCard: "summary_large_image" as const,
+    twitterCard: "summary" as const,
     robots: "index, follow",
   },
 
