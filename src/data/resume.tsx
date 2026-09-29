@@ -21,7 +21,7 @@ export const DATA = {
     "Full-stack engineer turned indie founder. I love building developer tools, fast UIs, and products people actually use.",
   summary:
     "In early 2023, I left a senior engineering role to go all-in on building my own SaaS products. Before that, [I completed a double degree in computer science and business](/#education), [interned at companies like Stripe and Cloudflare](/#work), and [competed in 18+ hackathons](/#hackathons). I also spent a summer in San Francisco as part of a founder residency focused on shipping fast and finding early customers.",
-  avatarUrl: "/picofme.png",
+  avatarUrl: "",
   ogImage: "/og_image.png",
   sections: {
     about: { order: 1, enabled: true, heading: "About" },
@@ -41,7 +41,7 @@ export const DATA = {
       text: "During my time in university, I attended {count}+ hackathons. People from around the country would come together and build incredible things in 2-3 days. It was eye-opening to see the endless possibilities brought to life by a group of motivated and passionate individuals.",
     },
     photos: {
-      order: 6, enabled: true,
+      order: 6, enabled: false,
       heading: "My Recent Travels",
     },
     contact: {
