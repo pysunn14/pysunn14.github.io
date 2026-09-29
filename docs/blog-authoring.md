@@ -4,7 +4,7 @@ The public site runs as an Astro Cloudflare Worker. Blog posts remain Markdown f
 
 ## Required Cloudflare configuration
 
-1. Connect this repository to a Cloudflare Worker and set its production branch to `main`. Set the build command to `pnpm build` and the deploy command to `pnpm exec wrangler deploy`. Verify the Worker on its `workers.dev` address before attaching `pysunn.me`.
+1. The `main` branch deploys through `.github/workflows/deploy-worker.yml`. Add repository secrets `CLOUDFLARE_API_TOKEN` (limited to this account with Workers Scripts: Edit and Account: Read) and `CLOUDFLARE_ACCOUNT_ID`. The workflow builds with `pnpm build` and deploys with Wrangler. Verify the Worker on its `workers.dev` address before attaching `pysunn.me`.
 2. Add GitHub as a Cloudflare Access identity provider using a GitHub OAuth app. The OAuth app homepage is the Access team domain; its callback is `https://<team>.cloudflareaccess.com/cdn-cgi/access/callback`.
 3. Create a self-hosted Access application for both `/write` and `/api/blog/write` on `pysunn.me`. Use an Allow policy with the exact owner email and enable only the GitHub login method. Do not use an Everyone or email-domain rule.
 4. Set these Worker secrets: `ACCESS_TEAM_DOMAIN` (the full `https://<team>.cloudflareaccess.com` URL), `ACCESS_AUD` (the Access application's audience tag), `BLOG_OWNER_EMAIL` (the same exact email used by the Allow policy), and `BLOG_GITHUB_TOKEN` (a fine-grained GitHub token limited to this repository with Contents: Read and write). The Access login itself does not grant GitHub repository write permission.
