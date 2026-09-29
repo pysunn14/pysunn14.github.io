@@ -129,6 +129,18 @@ export const DATA = {
       description:
         "AI 개발자로 iOS 온디바이스 small Language Model의 구현 및 최적화를 담당했습니다.",
     },
+    {
+      company: "iKnow Lab, 아주대학교",
+      href: "",
+      badges: [],
+      location: "수원",
+      title: "학부연구생",
+      logoUrl: "",
+      start: "2025.07",
+      end: "2026.03",
+      description:
+        "학부연구생으로 MLLM, Vision Language Models의 Spatial Reasoning을 연구했습니다.",
+    },
   ],
   education: [
     {
