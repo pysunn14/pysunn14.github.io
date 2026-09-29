@@ -206,7 +206,7 @@ export const DATA = {
       logoUrl: "/logos/shake.png",
       dates: "Jan 2026",
       location: "아주대학교 대표",
-      description: "알고리즘 대회 본선에서 3문제를 해결했습니다. 대회 명칭은 2025 shake!이며 본선은 2026년 1월에 열렸습니다.",
+      description: "경인지역 7개 대학의 학교 대표가 참가한 개인전 본선에서 3문제를 해결했습니다.",
     },
     {
       title: "제4회 대학 연합 아주 소중한 딥러닝 챌린지 · 2등상",
