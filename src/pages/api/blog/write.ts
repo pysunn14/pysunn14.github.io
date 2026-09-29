@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { env } from "cloudflare:workers";
-import { verifyOwner } from "@/lib/access-auth.mjs";
+import { verifyOwner } from "@/lib/github-auth.mjs";
 import { publishPost } from "@/lib/blog-authoring.mjs";
 
 const MAX_REQUEST_BYTES = 1_000_000;

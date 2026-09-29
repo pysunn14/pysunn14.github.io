@@ -2,14 +2,14 @@
 import Layout from "@/layouts/Layout.astro";
 import BlogEditor from "@/components/BlogEditor";
 import { env } from "cloudflare:workers";
-import { verifyOwner } from "@/lib/access-auth.mjs";
+import { verifyOwner } from "@/lib/github-auth.mjs";
 
 const isLocal = import.meta.env.DEV && ["localhost", "127.0.0.1", "[::1]"].includes(Astro.url.hostname);
 const canWrite = isLocal || await verifyOwner(Astro.request, env);
-Astro.response.status = canWrite ? 200 : 404;
+if (!canWrite) return Astro.redirect("/auth/github");
 Astro.response.headers.set("Cache-Control", "no-store");
 ---
 
 <Layout title="Write" description="블로그 글쓰기" wide>
-  {canWrite ? <BlogEditor client:only="react" remote={!isLocal} /> : <p>페이지를 찾을 수 없습니다.</p>}
+  <BlogEditor client:only="react" remote={!isLocal} />
 </Layout>

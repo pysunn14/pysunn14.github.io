@@ -1,15 +1,15 @@
 # Blog authoring deployment
 
-The public site runs as an Astro Cloudflare Worker. Blog posts remain Markdown files in `src/content/blog`; a successful write commits a new file to the `main` branch. A Workers Git integration rebuilds the site from that commit. The local `/write` page still saves files directly during development.
+The public site runs as an Astro Cloudflare Worker. Blog posts are Markdown files in `src/content/blog`. Publishing creates a new file on `main`; `.github/workflows/deploy-worker.yml` then builds and deploys that commit. The local `/write` page saves files directly during development.
 
-## Required Cloudflare configuration
+## Deployment
 
-1. The `main` branch deploys through `.github/workflows/deploy-worker.yml`. Add repository secrets `CLOUDFLARE_API_TOKEN` (limited to this account with Workers Scripts: Edit and Account: Read) and `CLOUDFLARE_ACCOUNT_ID`. The workflow builds with `pnpm build` and deploys with Wrangler. Verify the Worker on its `workers.dev` address before attaching `pysunn.me`.
-2. Add GitHub as a Cloudflare Access identity provider using a GitHub OAuth app. The OAuth app homepage is the Access team domain; its callback is `https://<team>.cloudflareaccess.com/cdn-cgi/access/callback`.
-3. Create a self-hosted Access application for both `/write` and `/api/blog/write` on `pysunn.me`. Use an Allow policy with the exact owner email and enable only the GitHub login method. Do not use an Everyone or email-domain rule.
-4. Set these Worker secrets: `ACCESS_TEAM_DOMAIN` (the full `https://<team>.cloudflareaccess.com` URL), `ACCESS_AUD` (the Access application's audience tag), `BLOG_OWNER_EMAIL` (the same exact email used by the Allow policy), and `BLOG_GITHUB_TOKEN` (a fine-grained GitHub token limited to this repository with Contents: Read and write). The Access login itself does not grant GitHub repository write permission.
-5. Open `/write` through Access, save a draft post, and confirm that the GitHub commit causes a successful Worker rebuild before moving the custom domain. Then attach `pysunn.me` to the Worker and verify public pages, the protected editor, and a new blog post.
+1. In the Cloudflare account, create an API token with **Individual Workers: Editor** scoped only to `pysunn-portfolio`. Store it as the repository secret `CLOUDFLARE_API_TOKEN`. Add the account ID as `CLOUDFLARE_ACCOUNT_ID`. The token expires after one year and must be renewed before then.
+2. Register a GitHub OAuth app with homepage `https://pysunn.me/` and callback `https://pysunn.me/auth/github/callback`. The app needs no OAuth scopes: GitHub still returns the authenticated account's numeric ID. GitHub OAuth is used only for owner identity; it cannot write blog posts.
+3. Set Worker secrets `GITHUB_OAUTH_CLIENT_ID`, `GITHUB_OAUTH_CLIENT_SECRET`, `BLOG_OWNER_GITHUB_ID`, and `BLOG_SESSION_SECRET`. The owner ID is the numeric GitHub account ID. Generate a random session secret of at least 32 bytes and do not commit any of these values.
+4. Create a fine-grained GitHub personal access token limited to this repository with **Contents: Read and write**. Store it as the Worker secret `BLOG_GITHUB_TOKEN`. This token is used only by the write API to add posts to `main`.
+5. Deploy and verify public pages on the `workers.dev` URL. GitHub OAuth login cannot be fully tested there because the OAuth app callback is registered for `pysunn.me`. Move the custom domain after the Worker and secrets are ready, then visit `/write`, sign in, save a post, and confirm the resulting GitHub Actions deployment and public article.
 
-The Worker independently validates the Access JWT signature, issuer, audience, application-token type, and owner email for both `/write` and the write API. Without the configured secrets, it denies access. The API also requires a same-origin JSON request and refuses to overwrite an existing slug.
+The login flow uses a short-lived signed state cookie and PKCE. The owner session is a signed, HTTP-only, secure cookie valid for 12 hours. The write API validates that cookie again, requires a same-origin JSON request, and refuses to overwrite an existing slug. Without the configured secrets, login and writing fail closed. The public blog has no writing control; the owner can open `/write` directly.
 
 GitHub Discussions and the giscus GitHub app are required for comments. The blog uses the repository's Announcements category and maps one discussion to each post pathname. A discussion is created when its first comment is submitted.
