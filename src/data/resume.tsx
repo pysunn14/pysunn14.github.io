@@ -75,6 +75,15 @@ export const DATA = {
       end: undefined,
       description:
         "AI 개발자로 iOS 온디바이스 small Language Model의 구현 및 최적화를 담당했습니다.",
+      team: {
+        name: "감히사람이에이전트를이기려해",
+        members: [
+          { name: "김민성", href: "https://github.com/Dongttak", role: "팀장" },
+          { name: "김민석", href: "https://github.com/pysunn14", role: "" },
+          { name: "김해울", href: "https://github.com/nox-katena", role: "" },
+        ],
+        mentors: ["박민재", "이세일", "박재선"],
+      },
     },
     {
       company: "iKnow Lab, 아주대학교",

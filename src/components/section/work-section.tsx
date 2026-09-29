@@ -76,11 +76,34 @@ export default function WorkSection() {
             </div>
           </AccordionTrigger>
           <AccordionContent className="p-0 ml-13 text-xs sm:text-sm text-muted-foreground">
-            {work.description}
+            <div className="space-y-3">
+              <p>{work.description}</p>
+              {"team" in work && (
+                <div className="space-y-1.5">
+                  <p className="font-medium text-foreground">{work.team.name}</p>
+                  <p>
+                    팀원: {work.team.members.map((member, index) => (
+                      <span key={member.href}>
+                        {index > 0 && ", "}
+                        <a
+                          href={member.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline decoration-transparent underline-offset-4 transition-colors hover:text-foreground hover:decoration-current focus-visible:text-foreground focus-visible:decoration-current focus-visible:outline-2 focus-visible:outline-offset-2"
+                        >
+                          {member.name}
+                        </a>
+                        {member.role && `(${member.role})`}
+                      </span>
+                    ))}
+                  </p>
+                  <p>멘토: {work.team.mentors.join(", ")}</p>
+                </div>
+              )}
+            </div>
           </AccordionContent>
         </AccordionItem>
       ))}
     </Accordion>
   );
 }
-
