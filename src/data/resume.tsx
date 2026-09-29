@@ -1,15 +1,5 @@
 import { Icons } from "@/components/icons";
 import { House, Library } from "lucide-react";
-import { ReactLight } from "@/components/ui/svgs/reactLight";
-import { NextjsIconDark } from "@/components/ui/svgs/nextjsIconDark";
-import { Typescript } from "@/components/ui/svgs/typescript";
-import { Nodejs } from "@/components/ui/svgs/nodejs";
-import { Python } from "@/components/ui/svgs/python";
-import { Golang } from "@/components/ui/svgs/golang";
-import { Postgresql } from "@/components/ui/svgs/postgresql";
-import { Docker } from "@/components/ui/svgs/docker";
-import { Kubernetes } from "@/components/ui/svgs/kubernetes";
-import { Astro } from "@/components/ui/svgs/astro";
 
 export const DATA = {
   name: "김민석",
@@ -64,16 +54,11 @@ export const DATA = {
     { src: "/photos/photo9.jpg", alt: "Photo 9" },
   ],
   skills: [
-    { name: "Astro", icon: Astro },
-    { name: "React", icon: ReactLight },
-    { name: "Next.js", icon: NextjsIconDark },
-    { name: "Typescript", icon: Typescript },
-    { name: "Node.js", icon: Nodejs },
-    { name: "Python", icon: Python },
-    { name: "Go", icon: Golang },
-    { name: "Postgres", icon: Postgresql },
-    { name: "Docker", icon: Docker },
-    { name: "Kubernetes", icon: Kubernetes },
+    { name: "C/C++" },
+    { name: "Python" },
+    { name: "Swift" },
+    { name: "SQL" },
+    { name: "PyTorch" },
   ],
   navbar: [
     { href: "/", icon: House, label: "Home" },
