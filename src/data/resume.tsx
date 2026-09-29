@@ -212,7 +212,7 @@ export const DATA = {
     },
     {
       title: "Centroid Cup",
-      logoUrl: "/logos/ajou-university.png",
+      logoUrl: "/logos/ansi.png",
       dates: "Sep 2025",
       result: "전체 6위 · 아주대학교 1등상 특별상 · 팀 낌민쎢",
       description: "국민대학교, 중앙대학교, 인하대학교, 아주대학교 연합 알고리즘 대회입니다.",
