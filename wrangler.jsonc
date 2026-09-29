@@ -12,13 +12,5 @@
 	"observability": {
 		"enabled": true
 	},
-	"routes": [
-		{
-			"pattern": "pysunn.me",
-			"zone_name": "pysunn.me",
-			"custom_domain": true,
-			"enabled": true,
-			"previews_enabled": false
-		}
-	]
+	"workers_dev": false
 }
