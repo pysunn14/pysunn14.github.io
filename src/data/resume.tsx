@@ -141,6 +141,18 @@ export const DATA = {
       description:
         "학부연구생으로 MLLM, Vision Language Models의 Spatial Reasoning을 연구했습니다.",
     },
+    {
+      company: "국군지휘통신사령부 CNOC",
+      href: "",
+      badges: [],
+      location: "",
+      title: "CERT병 · 육군 병장",
+      logoUrl: "",
+      start: "2022.03",
+      end: "2023.09",
+      description:
+        "CERT병으로 네트워크 접근 통제를 감시하며 비인가 단말기를 차단하고, 상황 조치를 수행했습니다.",
+    },
   ],
   education: [
     {
