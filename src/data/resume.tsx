@@ -30,7 +30,6 @@ export const DATA = {
     contact: {
       order: 8, enabled: true,
       heading: "Contact",
-      text: "프로젝트와 연구에 관한 연락은 이메일로 보내주세요.",
     },
   },
   skills: [
