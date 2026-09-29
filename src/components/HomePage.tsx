@@ -168,6 +168,7 @@ export default function HomePage() {
                 className="whitespace-pre-line break-keep text-3xl font-semibold leading-tight tracking-tighter sm:text-4xl lg:text-5xl"
                 yOffset={8}
                 text={DATA.headline}
+                highlight={{ text: "Pysunn", className: "text-sky-600 dark:text-sky-400" }}
               />
               <BlurFadeText
                 className="text-pretty break-keep text-muted-foreground max-w-[600px] md:text-lg lg:text-xl"

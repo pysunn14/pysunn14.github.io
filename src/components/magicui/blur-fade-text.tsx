@@ -5,6 +5,7 @@ import { useMemo } from "react";
 interface BlurFadeTextProps {
   text: string;
   className?: string;
+  highlight?: { text: string; className: string };
   variant?: {
     hidden: { y: number };
     visible: { y: number };
@@ -18,6 +19,7 @@ interface BlurFadeTextProps {
 const BlurFadeText = ({
   text,
   className,
+  highlight,
   variant,
   duration = 0.4,
   characterDelay = 0.03,
@@ -75,7 +77,14 @@ const BlurFadeText = ({
         }}
         className={cn("inline-block", className)}
       >
-        {text}
+        {highlight
+          ? text.split(highlight.text).map((part, index) => (
+              <span key={index}>
+                {index > 0 && <span className={highlight.className}>{highlight.text}</span>}
+                {part}
+              </span>
+            ))
+          : text}
       </motion.span>
     </div>
   );
