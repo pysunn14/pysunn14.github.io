@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, sessionDrivers } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
@@ -25,6 +25,9 @@ const prettyCodeOptions = {
 export default defineConfig({
   site: CONFIG.site.url,
   output: 'server',
+
+  // This site does not use sessions; avoid provisioning a KV namespace at deploy time.
+  session: { driver: sessionDrivers.lruCache() },
 
   adapter: cloudflare(),
 
