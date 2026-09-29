@@ -43,6 +43,7 @@ export async function publishPost(input, token, fetcher = fetch) {
     headers: {
       Accept: "application/vnd.github+json",
       Authorization: `Bearer ${token}`,
+      "User-Agent": "pysunn-blog-writer",
       "Content-Type": "application/json",
       "X-GitHub-Api-Version": "2026-03-10",
     },

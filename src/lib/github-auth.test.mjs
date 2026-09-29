@@ -32,6 +32,7 @@ test("GitHub login is tied to the initiating browser and callback URL", async ()
   const session = await finishLogin(callback, config, fetcher);
   assert.equal(calls.length, 2);
   assert.match(calls[0].options.body, /code_verifier=/);
+  assert.equal(calls[1].options.headers["User-Agent"], "pysunn-blog-writer");
   assert.match(session, /HttpOnly; Secure; SameSite=Lax/);
   const ownerRequest = new Request("https://pysunn.me/api/blog/write", { headers: { Cookie: session.split(";")[0] } });
   assert.equal(await verifyOwner(ownerRequest, config), true);

@@ -29,6 +29,7 @@ test("publishes only a new file to the configured repository", async () => {
   assert.equal(request.url, "https://api.github.com/repos/pysunn14/pysunn14.github.io/contents/src/content/blog/first-post.md");
   assert.equal(request.options.method, "PUT");
   assert.equal(request.options.headers.Authorization, "Bearer token");
+  assert.equal(request.options.headers["User-Agent"], "pysunn-blog-writer");
   const payload = JSON.parse(request.options.body);
   assert.equal(payload.branch, "main");
   assert.equal(payload.sha, undefined);

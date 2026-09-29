@@ -106,6 +106,7 @@ export async function finishLogin(request, config, fetcher = fetch) {
     headers: {
       Accept: "application/vnd.github+json",
       Authorization: `Bearer ${token.access_token}`,
+      "User-Agent": "pysunn-blog-writer",
       "X-GitHub-Api-Version": "2026-03-10",
     },
   });
