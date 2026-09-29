@@ -8,8 +8,27 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
+import { DiscordLogoIcon } from "@radix-ui/react-icons";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
+  const [discordCopyStatus, setDiscordCopyStatus] = useState<"idle" | "copied" | "error">("idle");
+
+  useEffect(() => {
+    if (discordCopyStatus === "idle") return;
+    const timer = window.setTimeout(() => setDiscordCopyStatus("idle"), 2000);
+    return () => window.clearTimeout(timer);
+  }, [discordCopyStatus]);
+
+  const copyDiscordUsername = async () => {
+    try {
+      await navigator.clipboard.writeText(DATA.contact.discordUsername);
+      setDiscordCopyStatus("copied");
+    } catch {
+      setDiscordCopyStatus("error");
+    }
+  };
+
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30">
       <Dock className="z-50 pointer-events-auto relative h-14 p-2 w-fit mx-auto flex gap-2 border bg-card/90 backdrop-blur-3xl shadow-[0_0_10px_3px] shadow-primary/5">
@@ -72,6 +91,27 @@ export default function Navbar() {
               </Tooltip>
             );
           })}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              type="button"
+              onClick={copyDiscordUsername}
+              aria-label={discordCopyStatus === "copied" ? "Discord 사용자명 복사됨" : `Discord 사용자명 ${DATA.contact.discordUsername} 복사`}
+            >
+              <DockIcon className="rounded-3xl cursor-pointer size-full bg-background p-0 text-foreground hover:text-foreground hover:bg-muted backdrop-blur-3xl border border-border transition-colors">
+                <DiscordLogoIcon className="size-full rounded-sm overflow-hidden object-contain" />
+              </DockIcon>
+            </button>
+          </TooltipTrigger>
+          <TooltipContent
+            side="top"
+            sideOffset={8}
+            className="rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]"
+          >
+            <p>{discordCopyStatus === "copied" ? "복사됨" : discordCopyStatus === "error" ? "복사 실패" : `Discord · ${DATA.contact.discordUsername} 복사`}</p>
+            <TooltipArrow className="fill-primary" />
+          </TooltipContent>
+        </Tooltip>
         <Separator
           orientation="vertical"
           className="h-2/3 m-auto w-px bg-border"

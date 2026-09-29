@@ -46,6 +46,7 @@ export const DATA = {
   ],
   contact: {
     email: "kminseok14@ajou.ac.kr",
+    discordUsername: "apdbumsb",
     social: {
       GitHub: {
         name: "GitHub",
