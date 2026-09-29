@@ -10,25 +10,27 @@ export const DATA = {
   description:
     "LLM 최적화 관련 연구와 AI를 활용한 서비스 개발 모두에 관심이 있습니다. 현재는 AI·SW 마에스트로 연수생 프로젝트 활동을 진행하고 있습니다.",
   summary:
-    "아주대학교에서 소프트웨어 및 컴퓨터공학을 전공합니다. 학부연구생으로 비전 언어 모델의 공간 추론 편향을 연구했고, AI·SW 마에스트로에서 iOS 온디바이스 AI 캐릭터 앱을 개발하고 있습니다.\n\n관심 분야: LLM 추론 최적화, 비전 언어 모델, 온디바이스 AI, GPU 컴퓨팅.",
+    "아주대학교에서 소프트웨어 및 컴퓨터공학을 전공합니다. 학부연구생으로 비전 언어 모델의 공간 추론 편향을 연구했고, AI·SW 마에스트로에서 iOS 온디바이스 AI 캐릭터 앱을 개발하고 있습니다.",
+  researchInterests: "LLM 추론 최적화, 비전 언어 모델, 온디바이스 AI, GPU 컴퓨팅",
   avatarUrl: "",
   ogImage: "",
   sections: {
     about: { order: 1, enabled: true, heading: "About" },
-    work: { order: 2, enabled: true, heading: "Experience", presentLabel: "Present" },
-    education: { order: 3, enabled: true, heading: "Education" },
-    skills: { order: 4, enabled: true, heading: "Skills" },
+    researchInterests: { order: 2, enabled: true, heading: "Research Interests" },
+    work: { order: 3, enabled: true, heading: "Experience", presentLabel: "Present" },
+    education: { order: 4, enabled: true, heading: "Education" },
+    skills: { order: 5, enabled: true, heading: "Skills" },
     projects: {
-      order: 5, enabled: true,
+      order: 6, enabled: true,
       heading: "Projects",
     },
-    publication: { order: 6, enabled: true, heading: "Publication" },
+    publication: { order: 7, enabled: true, heading: "Publication" },
     honors: {
-      order: 7, enabled: true,
+      order: 8, enabled: true,
       heading: "Activities & Honors",
     },
     contact: {
-      order: 8, enabled: true,
+      order: 9, enabled: true,
       heading: "Contact",
     },
   },

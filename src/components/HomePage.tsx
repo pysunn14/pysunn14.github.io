@@ -27,6 +27,18 @@ const sectionComponents: Record<string, React.ReactNode> = {
       </div>
     </section>
   ),
+  researchInterests: (
+    <section id="research-interests">
+      <div className="flex min-h-0 flex-col gap-y-4">
+        <BlurFade delay={BLUR_FADE_DELAY * 4}>
+          <h2 className="text-xl font-bold">{DATA.sections.researchInterests.heading}</h2>
+        </BlurFade>
+        <BlurFade delay={BLUR_FADE_DELAY * 5}>
+          <p className="text-muted-foreground leading-relaxed">{DATA.researchInterests}</p>
+        </BlurFade>
+      </div>
+    </section>
+  ),
   work: (
     <section id="work">
       <div className="flex min-h-0 flex-col gap-y-6">
