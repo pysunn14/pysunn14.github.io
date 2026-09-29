@@ -70,7 +70,7 @@ export const DATA = {
       badges: [],
       location: "서울",
       title: "AI 개발자",
-      logoUrl: "",
+      logoUrl: "/logos/ai-sw-maestro.jpg",
       start: "2026.04",
       end: undefined,
       description:
@@ -82,7 +82,7 @@ export const DATA = {
       badges: [],
       location: "수원",
       title: "학부연구생",
-      logoUrl: "",
+      logoUrl: "/logos/ajou-university.png",
       start: "2025.07",
       end: "2026.03",
       description:
@@ -94,7 +94,7 @@ export const DATA = {
       badges: [],
       location: "",
       title: "CERT병 · 육군 병장",
-      logoUrl: "",
+      logoUrl: "/logos/cnoc.png",
       start: "2022.03",
       end: "2023.09",
       description:
@@ -107,7 +107,7 @@ export const DATA = {
       href: "https://www.ajou.ac.kr/",
       degree: "B.S. in Software and Computer Engineering (expected)",
       gpa: "GPA: 4.25/4.50 · Major GPA: 4.22/4.50",
-      logoUrl: "",
+      logoUrl: "/logos/ajou-university.png",
       start: "Mar 2021",
       end: "Feb 2027",
     },
