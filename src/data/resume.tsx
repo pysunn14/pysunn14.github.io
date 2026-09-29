@@ -20,20 +20,16 @@ export const DATA = {
     skills: { order: 4, enabled: true, heading: "Skills" },
     projects: {
       order: 5, enabled: true,
-      label: "Projects",
-      heading: "선택한 프로젝트",
-      text: "연구 실험부터 iOS 앱까지, 직접 구현한 작업을 모았습니다.",
+      heading: "Projects",
     },
     publication: { order: 6, enabled: true, heading: "Publication" },
     honors: {
       order: 7, enabled: true,
-      label: "Activities & Honors",
-      heading: "대회와 활동",
+      heading: "Activities & Honors",
     },
     contact: {
       order: 8, enabled: true,
-      label: "Contact",
-      heading: "연락하기",
+      heading: "Contact",
       text: "프로젝트와 연구에 관한 연락은 이메일로 보내주세요.",
     },
   },
