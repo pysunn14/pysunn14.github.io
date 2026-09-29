@@ -5,7 +5,7 @@ import { useMemo } from "react";
 interface BlurFadeTextProps {
   text: string;
   className?: string;
-  highlight?: { text: string; className: string };
+  highlight?: { text: string; className: string; href?: string };
   variant?: {
     hidden: { y: number };
     visible: { y: number };
@@ -80,7 +80,18 @@ const BlurFadeText = ({
         {highlight
           ? text.split(highlight.text).map((part, index) => (
               <span key={index}>
-                {index > 0 && <span className={highlight.className}>{highlight.text}</span>}
+                {index > 0 && (highlight.href ? (
+                  <a
+                    href={highlight.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={highlight.className}
+                  >
+                    {highlight.text}
+                  </a>
+                ) : (
+                  <span className={highlight.className}>{highlight.text}</span>
+                ))}
                 {part}
               </span>
             ))
