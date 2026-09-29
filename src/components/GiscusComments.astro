@@ -1,0 +1,39 @@
+<section aria-labelledby="comments-heading" class="mt-12 border-t border-border pt-8">
+  <h2 id="comments-heading" class="mb-6 text-xl font-semibold">댓글</h2>
+  <div id="giscus-comments"></div>
+</section>
+
+<script>
+  const container = document.getElementById("giscus-comments");
+
+  if (container) {
+    const theme = () => document.documentElement.classList.contains("dark") ? "dark" : "light";
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    Object.assign(script.dataset, {
+      repo: "pysunn14/pysunn14.github.io",
+      repoId: "R_kgDOT7_yrQ",
+      category: "Announcements",
+      categoryId: "DIC_kwDOT7_yrc4DGqQB",
+      mapping: "pathname",
+      strict: "1",
+      reactionsEnabled: "1",
+      emitMetadata: "0",
+      inputPosition: "bottom",
+      theme: theme(),
+      lang: "ko",
+      loading: "lazy",
+    });
+    container.append(script);
+
+    new MutationObserver(() => {
+      const frame = container.querySelector<HTMLIFrameElement>("iframe.giscus-frame");
+      frame?.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme: theme() } } },
+        "https://giscus.app",
+      );
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  }
+</script>

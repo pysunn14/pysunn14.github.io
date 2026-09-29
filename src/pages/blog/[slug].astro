@@ -6,6 +6,7 @@ import { DATA } from "@/data/resume";
 import { formatDate } from "@/lib/utils";
 import { mdxComponents } from "@/mdx-components";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import GiscusComments from "@/components/GiscusComments.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -131,5 +132,6 @@ const jsonLd = JSON.stringify({
         }
       </div>
     </nav>
+    <GiscusComments />
   </section>
 </Layout>
