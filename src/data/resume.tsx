@@ -198,7 +198,7 @@ export const DATA = {
       title: "아주대학교 프로그래밍 경시대회(APC) Div.1 · 우수상",
       logoUrl: "/logos/ajou-university.png",
       dates: "May 2026",
-      location: "아주대학교",
+      location: "아주대학교 SW중심대학사업단장상",
       description: "",
     },
     {
