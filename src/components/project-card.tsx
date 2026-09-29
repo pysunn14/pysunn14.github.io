@@ -47,19 +47,21 @@ export function ProjectCard({
   links,
   className,
 }: Props) {
+  const external = href && !href.startsWith("/");
+
   return (
-    <div
+    <article
       className={cn(
-        "flex flex-col h-full border border-border rounded-xl overflow-hidden hover:ring-2 hover:ring-muted transition-all duration-200",
+        "relative isolate flex flex-col h-full border border-border rounded-xl overflow-hidden hover:ring-2 hover:ring-muted transition-all duration-200",
         className
       )}
     >
       {(image || video) && <div className="relative shrink-0">
         <a
           href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block"
+          target={external ? "_blank" : undefined}
+          rel={external ? "noopener noreferrer" : undefined}
+          className="relative z-10 block"
         >
           {video ? (
             <video
@@ -80,23 +82,26 @@ export function ProjectCard({
       <div className="p-6 flex flex-col gap-3 flex-1">
         <div className="flex items-start justify-between gap-2">
           <div className="flex flex-col gap-1">
-            <h3 className="font-semibold">{title}</h3>
+            <h3 className="break-keep font-semibold [overflow-wrap:anywhere]">
+              {href ? (
+                <a
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className="after:absolute after:inset-0 after:z-0 after:rounded-xl after:content-[''] focus-visible:outline-none focus-visible:after:ring-2 focus-visible:after:ring-inset focus-visible:after:ring-sky-600 dark:focus-visible:after:ring-sky-400"
+                >
+                  {title}
+                </a>
+              ) : title}
+            </h3>
             <time className="text-xs text-muted-foreground">{dates}</time>
           </div>
-          {href && <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm"
-            aria-label={`${title} 열기`}
-          >
-            <ArrowUpRight className="h-4 w-4" aria-hidden />
-          </a>}
+          {href && <ArrowUpRight className="pointer-events-none h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />}
         </div>
         {links && links.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {links.map((link) => (
-              <a href={link.href} key={link.href} target="_blank" rel="noopener noreferrer">
+              <a href={link.href} key={link.href} target="_blank" rel="noopener noreferrer" className="relative z-10 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-600 dark:focus-visible:outline-sky-400">
                 <Badge className="flex items-center gap-1.5 text-xs" variant="outline">
                   {link.icon}
                   {link.type}
@@ -119,6 +124,6 @@ export function ProjectCard({
           </div>
         )}
       </div>
-    </div>
+    </article>
   );
 }

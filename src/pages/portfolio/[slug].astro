@@ -1,0 +1,33 @@
+---
+export const prerender = true;
+import type { GetStaticPaths } from "astro";
+import Layout from "@/layouts/Layout.astro";
+import PdfDocument from "@/components/PdfDocument.astro";
+import { DATA } from "@/data/resume";
+import { portfolioDocuments } from "@/data/documents";
+
+export const getStaticPaths = (() => DATA.projects.map((project) => ({
+  params: { slug: project.slug },
+  props: { project: {
+    slug: project.slug,
+    title: project.title,
+    links: project.links.map(({ type, href }) => ({ type, href })),
+  } },
+}))) satisfies GetStaticPaths;
+
+interface Props {
+  project: Pick<(typeof DATA.projects)[number], "slug" | "title"> & {
+    links: readonly { type: string; href: string }[];
+  };
+}
+const { project } = Astro.props;
+---
+
+<Layout title={project.title} wide>
+  <PdfDocument
+    title={project.title}
+    document={portfolioDocuments[project.slug]}
+    back={{ href: "/portfolio", label: "Portfolio" }}
+    links={project.links}
+  />
+</Layout>

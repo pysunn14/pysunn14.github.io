@@ -1,0 +1,15 @@
+---
+export const prerender = true;
+import Layout from "@/layouts/Layout.astro";
+import BlurFade from "@/components/magicui/blur-fade";
+import ProjectsSection from "@/components/section/projects-section";
+---
+
+<Layout title="Portfolio">
+  <main class="flex flex-col gap-10">
+    <BlurFade client:load delay={0.04}>
+      <header><h1 class="text-2xl font-bold tracking-tight">Portfolio</h1></header>
+    </BlurFade>
+    <ProjectsSection client:load showHeading={false} delay={0.08} />
+  </main>
+</Layout>

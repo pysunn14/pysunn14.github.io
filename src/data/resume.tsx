@@ -129,8 +129,9 @@ export const DATA = {
   },
   projects: [
     {
+      slug: "beolmuri",
       title: "별무리 — 온디바이스 AI 캐릭터 앱",
-      href: "https://pysunn.me/docs-beolmuri-ai/",
+      href: "/portfolio/beolmuri",
       dates: "May 2026 – Present",
       technologies: ["Swift", "LiteRT-LM", "SQLite", "Gemma"],
       links: [
@@ -149,8 +150,9 @@ export const DATA = {
       video: "",
     },
     {
+      slug: "towa",
       title: "TOWA — AI 만화 번역 워크스테이션",
-      href: "https://github.com/trit-ajou/TOWA",
+      href: "/portfolio/towa",
       dates: "Mar 2026 – Jun 2026",
       technologies: ["CRAFT", "OCR", "LLM", "OpenCV"],
       links: [

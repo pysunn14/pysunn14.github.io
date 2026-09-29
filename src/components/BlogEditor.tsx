@@ -4,14 +4,13 @@ import remarkGfm from "remark-gfm";
 
 type Draft = {
   title: string;
-  slug: string;
   publishedAt: string;
   summary: string;
   body: string;
 };
 
 const STORAGE_KEY = "pysunn-blog-draft";
-const EMPTY_DRAFT: Draft = { title: "", slug: "", publishedAt: "", summary: "", body: "" };
+const EMPTY_DRAFT: Draft = { title: "", publishedAt: "", summary: "", body: "" };
 const fieldClass = "w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/50";
 
 function localDate() {
@@ -31,7 +30,6 @@ function slugFromTitle(title: string) {
 export default function BlogEditor({ remote = false }: { remote?: boolean }) {
   const [draft, setDraft] = useState<Draft>(EMPTY_DRAFT);
   const [ready, setReady] = useState(false);
-  const [manualSlug, setManualSlug] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [savedSlug, setSavedSlug] = useState("");
@@ -41,8 +39,12 @@ export default function BlogEditor({ remote = false }: { remote?: boolean }) {
     if (stored) {
       try {
         const restored = JSON.parse(stored) as Partial<Draft>;
-        setDraft({ ...EMPTY_DRAFT, ...restored, publishedAt: restored.publishedAt || localDate() });
-        setManualSlug(Boolean(restored.slug && restored.slug !== slugFromTitle(restored.title || "")));
+        setDraft({
+          title: restored.title || "",
+          publishedAt: restored.publishedAt || localDate(),
+          summary: restored.summary || "",
+          body: restored.body || "",
+        });
       } catch {
         setDraft({ ...EMPTY_DRAFT, publishedAt: localDate() });
       }
@@ -62,30 +64,22 @@ export default function BlogEditor({ remote = false }: { remote?: boolean }) {
     setDraft((current) => ({ ...current, [key]: value }));
   }
 
-  function updateTitle(value: string) {
-    setMessage("");
-    setSavedSlug("");
-    setDraft((current) => ({
-      ...current,
-      title: value,
-      slug: manualSlug ? current.slug : slugFromTitle(value),
-    }));
-  }
-
   async function save(event: SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     setSaving(true);
     setMessage("");
     try {
+      const slug = slugFromTitle(draft.title);
+      if (!slug) throw new Error("제목에 글자나 숫자를 포함해 주세요.");
       const response = await fetch(remote ? "/api/blog/write" : "/__local/blog/write", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(draft),
+        body: JSON.stringify({ ...draft, slug }),
       });
       const result = await response.json() as { slug?: string; error?: string };
       if (!response.ok) throw new Error(result.error || "저장하지 못했습니다.");
       localStorage.removeItem(STORAGE_KEY);
-      setSavedSlug(result.slug || draft.slug);
+      setSavedSlug(result.slug || slug);
       setMessage(remote ? "저장소에 글을 등록했습니다. 배포 후 공개됩니다." : "파일을 저장했습니다.");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "저장하지 못했습니다.");
@@ -109,21 +103,12 @@ export default function BlogEditor({ remote = false }: { remote?: boolean }) {
         <div className="space-y-5">
           <label className="block">
             <span className="mb-2 block text-sm font-medium">제목</span>
-            <input className={`${fieldClass} text-lg font-medium`} value={draft.title} onChange={(event) => updateTitle(event.target.value)} maxLength={120} placeholder="글 제목" required />
+            <input className={`${fieldClass} text-lg font-medium`} value={draft.title} onChange={(event) => update("title", event.target.value)} maxLength={120} placeholder="글 제목" required />
           </label>
-          <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_11rem]">
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium">주소</span>
-              <div className="flex items-center rounded-lg border border-border bg-background focus-within:border-foreground/50">
-                <span className="pl-3 text-sm text-muted-foreground">/blog/</span>
-                <input className="min-w-0 flex-1 bg-transparent px-1 py-2.5 text-sm outline-none" value={draft.slug} onChange={(event) => { setManualSlug(true); update("slug", event.target.value); }} placeholder="글-주소" maxLength={80} required />
-              </div>
-            </label>
-            <label className="block">
-              <span className="mb-2 block text-sm font-medium">날짜</span>
-              <input type="date" className={fieldClass} value={draft.publishedAt} onChange={(event) => update("publishedAt", event.target.value)} required />
-            </label>
-          </div>
+          <label className="block sm:max-w-44">
+            <span className="mb-2 block text-sm font-medium">날짜</span>
+            <input type="date" className={fieldClass} value={draft.publishedAt} onChange={(event) => update("publishedAt", event.target.value)} required />
+          </label>
           <label className="block">
             <span className="mb-2 block text-sm font-medium">요약</span>
             <textarea className={`${fieldClass} min-h-20 resize-y`} value={draft.summary} onChange={(event) => update("summary", event.target.value)} maxLength={300} placeholder="글 목록과 검색 결과에 표시할 짧은 소개" required />

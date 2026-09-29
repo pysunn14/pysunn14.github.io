@@ -27,7 +27,6 @@ const posts = paginatedPosts.map((post) => ({
   title: post.data.title,
   publishedAt: post.data.publishedAt,
 }));
-const canWrite = import.meta.env.DEV && ["localhost", "127.0.0.1", "[::1]"].includes(Astro.url.hostname);
 ---
 
 <Layout title="Blog" description="연구와 개발 과정에서 정리한 글을 올릴 예정입니다.">
@@ -37,6 +36,5 @@ const canWrite = import.meta.env.DEV && ["localhost", "127.0.0.1", "[::1]"].incl
     allPostsCount={sortedPosts.length}
     pagination={pagination}
     pageSize={PAGE_SIZE}
-    canWrite={canWrite}
   />
 </Layout>

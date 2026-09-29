@@ -1,0 +1,35 @@
+---
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Papers", href: "/papers" },
+  { label: "Playground", href: "/playground" },
+];
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<nav data-site-nav aria-label="메인 메뉴" class="mb-10 flex items-center gap-3 overflow-x-auto border-b border-border [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mb-14 sm:gap-6">
+  {links.map(({ label, href }) => {
+    const active = pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+    return (
+      <a
+        href={href}
+        aria-current={active ? "page" : undefined}
+        class:list={[
+          "inline-flex min-h-11 min-w-11 shrink-0 items-center whitespace-nowrap border-b-2 px-0.5 text-xs font-medium leading-none transition-colors sm:text-sm focus-visible:rounded-sm focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sky-600 dark:focus-visible:outline-sky-400 active:text-foreground",
+          active
+            ? "border-sky-700 text-sky-700 dark:border-sky-400 dark:text-sky-400"
+            : "border-transparent text-muted-foreground hover:text-foreground",
+        ]}
+      >
+        {label}
+      </a>
+    );
+  })}
+</nav>
+
+<script>
+  const activeLink = document.querySelector<HTMLElement>('[data-site-nav] [aria-current="page"]');
+  activeLink?.scrollIntoView({ block: "nearest", inline: "nearest" });
+</script>

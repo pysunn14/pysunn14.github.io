@@ -1,20 +1,9 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import PdfDocument from "@/components/PdfDocument.astro";
+import { resumeDocument } from "@/data/documents";
 ---
 
 <Layout title="Resume" description="Minseok Kim's English CV" wide>
-  <main class="flex flex-col gap-6">
-    <header class="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <h1 class="text-3xl font-semibold tracking-tight">Resume</h1>
-      </div>
-      <div class="flex gap-3 text-sm">
-        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="underline underline-offset-4 hover:text-muted-foreground">Open PDF</a>
-        <a href="/resume.pdf" download="Minseok_Kim_CV_EN.pdf" class="underline underline-offset-4 hover:text-muted-foreground">Download PDF</a>
-      </div>
-    </header>
-
-    <img src="/resume/page-1.webp" alt="English CV, page 1 of 2" width="1132" height="1600" class="block w-full bg-white shadow-lg" />
-    <img src="/resume/page-2.webp" alt="English CV, page 2 of 2" width="1132" height="1600" loading="lazy" class="block w-full bg-white shadow-lg" />
-  </main>
+  <PdfDocument title="Resume" document={resumeDocument} />
 </Layout>

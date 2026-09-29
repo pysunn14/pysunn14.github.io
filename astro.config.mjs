@@ -32,6 +32,16 @@ export default defineConfig({
   adapter: cloudflare(),
 
   vite: {
+    environments: {
+      ssr: {
+        optimizeDeps: {
+          // The content schema loads astro/zod on the first blog request.
+          // Prebundle it before serving so discovery cannot replace React's
+          // shared module graph while that request is rendering.
+          include: ['astro/zod'],
+        },
+      },
+    },
     plugins: [
       tailwindcss(),
       localBlogWriter(fileURLToPath(new URL('./src/content/blog', import.meta.url))),

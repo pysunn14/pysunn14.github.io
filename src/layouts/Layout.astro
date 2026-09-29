@@ -3,6 +3,7 @@ import "../styles/global.css";
 import { DATA } from "@/data/resume";
 import { CONFIG } from "@/data/config";
 import NavbarIsland from "@/components/NavbarIsland";
+import SiteNav from "@/components/SiteNav.astro";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 
 interface Props {
@@ -154,6 +155,7 @@ const { baseFontSize } = CONFIG.typography;
 
     <!-- Main content wrapper - matches template's z-10 container exactly -->
     <div class={`relative z-10 ${wide ? "max-w-4xl" : "max-w-2xl"} mx-auto py-12 pb-24 sm:py-24 px-6`}>
+      <SiteNav />
       <slot />
     </div>
 

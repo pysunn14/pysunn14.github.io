@@ -187,13 +187,6 @@ export default function HomePage() {
                   Resume
                   <ArrowUpRight className="size-3.5" aria-hidden />
                 </a>
-                <a
-                  href="/blog"
-                  className="inline-flex w-fit items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-                >
-                  Blog
-                  <ArrowUpRight className="size-3.5" aria-hidden />
-                </a>
               </div>
             </div>
             {DATA.avatarUrl && (

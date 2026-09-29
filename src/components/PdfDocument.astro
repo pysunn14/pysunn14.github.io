@@ -1,0 +1,45 @@
+---
+import BlurFade from "@/components/magicui/blur-fade";
+import type { PdfDocumentData } from "@/data/documents";
+
+interface Props {
+  title: string;
+  document: PdfDocumentData | null;
+  back?: { href: string; label: string };
+  links?: readonly { type: string; href: string }[];
+}
+
+const { title, document, back, links = [] } = Astro.props;
+const linkClass = "inline-flex min-h-11 items-center underline underline-offset-4 transition-colors hover:text-sky-700 dark:hover:text-sky-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-600 dark:focus-visible:outline-sky-400";
+---
+
+<main class="flex flex-col gap-6">
+  <BlurFade client:load delay={0.04}>
+    <header class="flex flex-wrap items-end justify-between gap-4">
+      <div class="min-w-0">
+        {back && <a href={back.href} class="mb-3 inline-flex min-h-11 items-center text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-600 dark:focus-visible:outline-sky-400">← {back.label}</a>}
+        <h1 class="break-keep text-3xl font-semibold tracking-tight [overflow-wrap:anywhere]">{title}</h1>
+      </div>
+      <div class="flex flex-wrap gap-4 text-sm">
+        {document && <>
+          <a href={document.pdf} target="_blank" rel="noopener noreferrer" class={linkClass}>Open PDF</a>
+          <a href={document.pdf} download={document.downloadName} class={linkClass}>Download PDF</a>
+        </>}
+        {links.map((link) => <a href={link.href} target="_blank" rel="noopener noreferrer" class={linkClass}>{link.type}</a>)}
+      </div>
+    </header>
+  </BlurFade>
+  <BlurFade client:load delay={0.08}>
+    {document ? (
+      <div class="flex flex-col gap-6">
+        {document.pages.map((page, index) => (
+          <img src={page.src} alt={page.alt} width={page.width} height={page.height} loading={index === 0 ? "eager" : "lazy"} class="block w-full bg-white shadow-lg" />
+        ))}
+      </div>
+    ) : (
+      <div class="border-y border-border py-20 text-center">
+        <p class="text-sm text-muted-foreground">PDF 준비 중입니다.</p>
+      </div>
+    )}
+  </BlurFade>
+</main>

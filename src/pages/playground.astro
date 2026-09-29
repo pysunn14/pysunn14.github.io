@@ -1,0 +1,18 @@
+---
+export const prerender = true;
+import Layout from "@/layouts/Layout.astro";
+import DecodePlayground from "@/components/DecodePlayground";
+import BlurFade from "@/components/magicui/blur-fade";
+---
+
+<Layout title="Playground" description="디코드 속도 시뮬레이션">
+  <main class="flex flex-col gap-10">
+    <BlurFade client:load delay={0.04}>
+      <header>
+        <h1 class="text-2xl font-bold tracking-tight">Playground</h1>
+      </header>
+    </BlurFade>
+    <DecodePlayground client:load />
+    <noscript><p>속도 시뮬레이션을 사용하려면 JavaScript를 켜주세요.</p></noscript>
+  </main>
+</Layout>

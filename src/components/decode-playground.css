@@ -1,0 +1,85 @@
+.decode-range,
+.decode-progress {
+  --decode-accent: var(--color-sky-600);
+  appearance: none;
+  background: transparent;
+  color: var(--decode-accent);
+}
+
+.dark .decode-range,
+.dark .decode-progress {
+  --decode-accent: var(--color-sky-400);
+}
+
+.decode-range::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: var(--radius);
+  background: var(--muted);
+}
+
+.decode-range::-moz-range-track {
+  height: 4px;
+  border-radius: var(--radius);
+  background: var(--muted);
+}
+
+.decode-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -7px;
+  border: none;
+  border-radius: 50%;
+  background: var(--decode-accent);
+}
+
+.decode-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: var(--decode-accent);
+}
+
+.decode-range:focus-visible {
+  outline: none;
+}
+
+.decode-range:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--decode-accent);
+  outline-offset: 4px;
+}
+
+.decode-range:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--decode-accent);
+  outline-offset: 4px;
+}
+
+.decode-range:active::-webkit-slider-thumb {
+  outline: 2px solid var(--decode-accent);
+  outline-offset: 4px;
+}
+
+.decode-range:active::-moz-range-thumb {
+  outline: 2px solid var(--decode-accent);
+  outline-offset: 4px;
+}
+
+.decode-progress {
+  overflow: clip;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--muted);
+}
+
+.decode-progress::-webkit-progress-bar {
+  background: var(--muted);
+}
+
+.decode-progress::-webkit-progress-value {
+  background: var(--decode-accent);
+}
+
+.decode-progress::-moz-progress-bar {
+  background: var(--decode-accent);
+}
