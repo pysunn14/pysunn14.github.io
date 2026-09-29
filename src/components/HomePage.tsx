@@ -132,7 +132,6 @@ const sectionComponents: Record<string, React.ReactNode> = {
             </div>
             <p className="text-sm">{DATA.publication.authors}</p>
             <p className="text-sm text-muted-foreground">{DATA.publication.venue}</p>
-            <p className="text-sm text-muted-foreground leading-relaxed">{DATA.publication.description}</p>
           </article>
         </BlurFade>
       </div>

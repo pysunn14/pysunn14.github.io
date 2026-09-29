@@ -116,14 +116,12 @@ export const DATA = {
     authors: "Minseok Kim, Hyunsouk Cho",
     venue: "Korea Computer Congress (KCC 2026) · Undergraduate Paper Competition · Jeju, South Korea",
     date: "Jun 2026",
-    description: "4종의 비전 언어 모델에서 방향 축에 따라 최대 52.12%p의 공간 추론 정확도 차이를 관찰했습니다. 2,000개 통제 합성 데이터로 패치 시퀀스 거리와 객체 간 어텐션의 관계를 분석했습니다(스피어만 상관계수 −0.782).",
   },
   projects: [
     {
       title: "별무리 — 온디바이스 AI 캐릭터 앱",
       href: "https://pysunn.me/docs-beolmuri-ai/",
       dates: "May 2026 – Present",
-      description: "Swift와 LiteRT-LM으로 iOS 온디바이스 에이전트의 추론, 기억, 도구 실행 흐름을 구현했습니다. 의도 분류와 도구 선택으로 잘못된 도구 호출을 45.83%에서 4.17%로 낮췄고, 고정 프롬프트 KV 캐시 재사용으로 첫 토큰 응답 시간을 평균 4.920초에서 1.274초로 줄였습니다(iPhone 17 CPU, 30개 요청).",
       technologies: ["Swift", "LiteRT-LM", "SQLite", "Gemma"],
       links: [
         {
@@ -144,7 +142,6 @@ export const DATA = {
       title: "VRC AGENT — 3D 행동 아바타",
       href: "https://github.com/pysunn14/vrc-ardy-agent",
       dates: "Aug 2026 – Present",
-      description: "VR 환경에서 음성 대화와 행동 생성을 아바타 실행으로 연결했습니다. 시각 정보가 필요할 때만 VLM을 호출하고, 플레이어 위치 추적은 YOLO로 분리했습니다.",
       technologies: ["STT", "LLM", "VLM", "ARDY", "YOLO"],
       links: [
         {
@@ -160,7 +157,6 @@ export const DATA = {
       title: "TOWA — AI 만화 번역 워크스테이션",
       href: "https://github.com/trit-ajou/TOWA",
       dates: "Mar 2026 – Jun 2026",
-      description: "텍스트 검출, OCR, LLM 번역, 인페인팅을 연결하는 Model Engine을 구현했습니다. 마스크 합성과 OpenCV 후처리로 MSE 기반 픽셀 훼손율을 23.15%에서 1.50%로 낮췄습니다.",
       technologies: ["CRAFT", "OCR", "LLM", "OpenCV"],
       links: [
         {

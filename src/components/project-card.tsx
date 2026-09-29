@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
-import Markdown from "react-markdown";
 
 function ProjectImage({ src, alt }: { src: string; alt: string }) {
   const [imageError, setImageError] = useState(false);
@@ -26,7 +25,6 @@ function ProjectImage({ src, alt }: { src: string; alt: string }) {
 interface Props {
   title: string;
   href?: string;
-  description: string;
   dates: string;
   tags: readonly string[];
   image?: string;
@@ -42,7 +40,6 @@ interface Props {
 export function ProjectCard({
   title,
   href,
-  description,
   dates,
   tags,
   image,
@@ -95,9 +92,6 @@ export function ProjectCard({
           >
             <ArrowUpRight className="h-4 w-4" aria-hidden />
           </a>}
-        </div>
-        <div className="text-xs flex-1 prose max-w-full text-pretty font-sans leading-relaxed text-muted-foreground dark:prose-invert">
-          <Markdown>{description}</Markdown>
         </div>
         {links && links.length > 0 && (
           <div className="flex flex-wrap gap-2">
