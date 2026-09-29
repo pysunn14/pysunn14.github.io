@@ -9,6 +9,8 @@ import remarkGfm from 'remark-gfm';
 import rehypePrettyCode from 'rehype-pretty-code';
 import { remarkCodeMeta } from './src/lib/remark-code-meta.ts';
 import { CONFIG } from './src/data/config.ts';
+import { fileURLToPath } from 'node:url';
+import { localBlogWriter } from './tools/local-blog-writer.mjs';
 
 /** @type {import('rehype-pretty-code').Options} */
 const prettyCodeOptions = {
@@ -27,7 +29,10 @@ export default defineConfig({
   adapter: cloudflare(),
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      localBlogWriter(fileURLToPath(new URL('./src/content/blog', import.meta.url))),
+    ],
   },
 
   integrations: [

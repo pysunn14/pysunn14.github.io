@@ -21,18 +21,22 @@ interface BlogListProps {
   allPostsCount: number;
   pagination: Pagination;
   pageSize: number;
+  canWrite: boolean;
 }
 
-export default function BlogList({ posts, allPostsCount, pagination, pageSize }: BlogListProps) {
+export default function BlogList({ posts, allPostsCount, pagination, pageSize, canWrite }: BlogListProps) {
   return (
     <section id="blog">
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <h1 className="text-2xl font-semibold tracking-tight mb-4">
-          Blog{" "}
-          <span className="ml-1 bg-card border border-border rounded-md px-2 py-1 text-muted-foreground text-sm">
-            글 {allPostsCount}개
-          </span>
-        </h1>
+        <div className="mb-4 flex items-center justify-between gap-4">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            Blog{" "}
+            <span className="ml-1 bg-card border border-border rounded-md px-2 py-1 text-muted-foreground text-sm">
+              글 {allPostsCount}개
+            </span>
+          </h1>
+          {canWrite && <a href="/write" className="rounded-lg border border-border px-3 py-1.5 text-sm hover:bg-muted">Write</a>}
+        </div>
         <p className="text-sm text-muted-foreground mb-8">
           연구와 개발 과정에서 정리한 글을 올릴 예정입니다.
         </p>
