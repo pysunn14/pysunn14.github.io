@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
-@import "@fontsource-variable/outfit";
 @import "@fontsource-variable/geist-mono";
 
 @custom-variant dark (&:is(.dark *));
@@ -11,7 +10,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-sans: 'Outfit Variable', sans-serif;
+  --font-sans: 'Pretendard Variable', sans-serif;
   --font-mono: 'Geist Mono Variable', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
