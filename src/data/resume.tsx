@@ -180,7 +180,7 @@ export const DATA = {
       logoUrl: "/logos/kaggle.png",
       dates: "Sep 2026",
       result: "3등상 · 전체 5위",
-      description: "Qwen2.5-3B-Instruct 기반 수학 추론 대회에서 풀이 16개 생성과 유효 답안 다수결을 적용했습니다.",
+      description: "Dr. GRPO 강화학습과 SRGen 기반 테스트 시점 연산 확장을 구현하고 성능과 실행 비용을 비교해 발표했습니다. 학습 모델의 성능 하락과 SRGen의 실행 시간을 고려해, 최종 제출에는 BF16 베이스 모델의 16회 생성과 유효 답안 다수결을 사용했습니다.",
     },
     {
       title: "제25회 TOPCIT",

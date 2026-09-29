@@ -174,13 +174,22 @@ export default function HomePage() {
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
-              <a
-                href="/resume"
-                className="mt-3 inline-flex w-fit items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-              >
-                Resume
-                <ArrowUpRight className="size-3.5" aria-hidden />
-              </a>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <a
+                  href="/resume"
+                  className="inline-flex w-fit items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+                >
+                  Resume
+                  <ArrowUpRight className="size-3.5" aria-hidden />
+                </a>
+                <a
+                  href="/blog"
+                  className="inline-flex w-fit items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+                >
+                  Blog
+                  <ArrowUpRight className="size-3.5" aria-hidden />
+                </a>
+              </div>
             </div>
             {DATA.avatarUrl && (
               <BlurFade delay={BLUR_FADE_DELAY} className="order-1 md:order-2">
