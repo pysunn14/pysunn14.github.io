@@ -1,12 +1,15 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import BlogEditor from "@/components/BlogEditor";
+import { env } from "cloudflare:workers";
+import { verifyOwner } from "@/lib/access-auth.mjs";
 
 const isLocal = import.meta.env.DEV && ["localhost", "127.0.0.1", "[::1]"].includes(Astro.url.hostname);
-Astro.response.status = isLocal ? 200 : 404;
+const canWrite = isLocal || await verifyOwner(Astro.request, env);
+Astro.response.status = canWrite ? 200 : 404;
 Astro.response.headers.set("Cache-Control", "no-store");
 ---
 
-<Layout title="Write" description="로컬 블로그 글쓰기" wide>
-  {isLocal ? <BlogEditor client:only="react" /> : <p>이 페이지는 로컬 개발 서버에서만 열립니다.</p>}
+<Layout title="Write" description="블로그 글쓰기" wide>
+  {canWrite ? <BlogEditor client:only="react" remote={!isLocal} /> : <p>페이지를 찾을 수 없습니다.</p>}
 </Layout>

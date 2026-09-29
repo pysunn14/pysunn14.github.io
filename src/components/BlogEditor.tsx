@@ -28,7 +28,7 @@ function slugFromTitle(title: string) {
     .replace(/-+$/g, "");
 }
 
-export default function BlogEditor() {
+export default function BlogEditor({ remote = false }: { remote?: boolean }) {
   const [draft, setDraft] = useState<Draft>(EMPTY_DRAFT);
   const [ready, setReady] = useState(false);
   const [manualSlug, setManualSlug] = useState(false);
@@ -77,7 +77,7 @@ export default function BlogEditor() {
     setSaving(true);
     setMessage("");
     try {
-      const response = await fetch("/__local/blog/write", {
+      const response = await fetch(remote ? "/api/blog/write" : "/__local/blog/write", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(draft),
@@ -86,7 +86,7 @@ export default function BlogEditor() {
       if (!response.ok) throw new Error(result.error || "저장하지 못했습니다.");
       localStorage.removeItem(STORAGE_KEY);
       setSavedSlug(result.slug || draft.slug);
-      setMessage("파일을 저장했습니다.");
+      setMessage(remote ? "저장소에 글을 등록했습니다. 배포 후 공개됩니다." : "파일을 저장했습니다.");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "저장하지 못했습니다.");
     } finally {
@@ -100,9 +100,9 @@ export default function BlogEditor() {
         <div>
           <a href="/blog" className="text-sm text-muted-foreground hover:text-foreground">← Blog</a>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight">Write</h1>
-          <p className="mt-2 text-sm text-muted-foreground">이 컴퓨터의 블로그 글 폴더에 저장됩니다.</p>
+          <p className="mt-2 text-sm text-muted-foreground">{remote ? "GitHub 저장소에 새 글을 등록합니다." : "이 컴퓨터의 블로그 글 폴더에 저장됩니다."}</p>
         </div>
-        <span className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">로컬 전용</span>
+        <span className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">{remote ? "작성자 전용" : "로컬 전용"}</span>
       </header>
 
       <form onSubmit={save} className="space-y-8">
@@ -152,9 +152,9 @@ export default function BlogEditor() {
           <p className="text-xs text-muted-foreground">입력 중인 내용은 이 브라우저에 임시 저장됩니다.</p>
           <div className="flex items-center gap-3">
             <span role="status" className="text-sm text-muted-foreground">{message}</span>
-            {savedSlug && <a className="text-sm underline underline-offset-4" href={`/blog/${encodeURIComponent(savedSlug)}`}>글 보기</a>}
+            {savedSlug && !remote && <a className="text-sm underline underline-offset-4" href={`/blog/${encodeURIComponent(savedSlug)}`}>글 보기</a>}
             <button type="submit" disabled={saving} className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-80 disabled:opacity-50">
-              {saving ? "저장 중…" : "파일 저장"}
+              {saving ? "저장 중…" : remote ? "글 등록" : "파일 저장"}
             </button>
           </div>
         </div>
