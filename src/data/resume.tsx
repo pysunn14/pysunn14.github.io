@@ -21,7 +21,7 @@ export const DATA = {
   description:
     "LLM 최적화 관련 연구와 AI를 활용한 서비스 개발 모두에 관심이 있습니다. 현재는 AI·SW 마에스트로 연수생 프로젝트 활동을 진행하고 있습니다.",
   summary:
-    "In early 2023, I left a senior engineering role to go all-in on building my own SaaS products. Before that, [I completed a double degree in computer science and business](/#education), [interned at companies like Stripe and Cloudflare](/#work), and [competed in 18+ hackathons](/#hackathons). I also spent a summer in San Francisco as part of a founder residency focused on shipping fast and finding early customers.",
+    "작성중입니다.",
   avatarUrl: "",
   ogImage: "/og_image.png",
   sections: {
