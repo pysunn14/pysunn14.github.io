@@ -19,10 +19,10 @@ export default function HonorsSection() {
                   <time className="text-xs text-muted-foreground">{honor.dates}</time>
                 )}
                 {honor.title && (
-                  <h3 className="font-semibold leading-none">{honor.title}</h3>
+                  <h3 className="font-semibold leading-snug">{honor.title}</h3>
                 )}
-                {honor.location && (
-                  <p className="text-sm text-muted-foreground">{honor.location}</p>
+                {honor.result && (
+                  <p className="text-sm font-medium text-foreground/85">{honor.result}</p>
                 )}
                 {honor.description && (
                   <p className="text-sm text-muted-foreground leading-relaxed wrap-break-word">
