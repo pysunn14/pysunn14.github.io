@@ -180,7 +180,7 @@ export const DATA = {
       logoUrl: "/logos/kaggle.png",
       dates: "Sep 2026",
       result: "3등상 · 전체 5위",
-      description: "Dr. GRPO 강화학습과 SRGen 기반 테스트 시점 연산 확장을 구현하고 성능과 실행 비용을 비교해 발표했습니다. 학습 모델의 성능 하락과 SRGen의 실행 시간을 고려해, 최종 제출에는 BF16 베이스 모델의 16회 생성과 유효 답안 다수결을 사용했습니다.",
+      description: "Dr. GRPO RLVR | SRGen Test-time Scailing | Majority Voting",
     },
     {
       title: "제25회 TOPCIT",
@@ -208,7 +208,7 @@ export const DATA = {
       logoUrl: "/logos/kaggle.png",
       dates: "Oct 2025",
       result: "2등상 · 전체 3위",
-      description: "5개 멀티태스크의 모델 성능 개선을 위해 로컬 평가 환경을 만들고 CoT, few-shot prompting, 4bit QLoRA를 적용했습니다.",
+      description: "5 Tasks Multitask Learning, CoT | 4bit QLoRA Fine-tuning",
     },
     {
       title: "Centroid Cup",
