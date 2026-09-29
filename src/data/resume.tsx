@@ -140,21 +140,6 @@ export const DATA = {
       video: "",
     },
     {
-      title: "VRC AGENT — 3D 행동 아바타",
-      href: "https://github.com/pysunn14/vrc-ardy-agent",
-      dates: "Aug 2026 – Present",
-      technologies: ["STT", "LLM", "VLM", "ARDY", "YOLO"],
-      links: [
-        {
-          type: "Source",
-          href: "https://github.com/pysunn14/vrc-ardy-agent",
-          icon: <Icons.github className="size-3" />,
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
       title: "TOWA — AI 만화 번역 워크스테이션",
       href: "https://github.com/trit-ajou/TOWA",
       dates: "Mar 2026 – Jun 2026",
