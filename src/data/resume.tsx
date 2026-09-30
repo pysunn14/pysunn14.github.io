@@ -130,7 +130,7 @@ export const DATA = {
   projects: [
     {
       slug: "beolmuri",
-      title: "별무리 — 온디바이스 AI 캐릭터 앱",
+      title: "별무리 - 개인화 기억 기반 온디바이스 AI 캐릭터 에이전트 앱",
       href: "/portfolio/beolmuri",
       dates: "May 2026 – Present",
       technologies: ["Swift", "LiteRT-LM", "SQLite", "Gemma"],
