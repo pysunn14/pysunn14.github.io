@@ -32,5 +32,11 @@ export const portfolioDocuments: Record<"beolmuri" | "towa", PdfDocumentData | n
       { src: "/portfolio/beolmuri/page-3.webp", alt: "별무리 포트폴리오, 3/3 페이지", width: 1132, height: 1600 },
     ],
   },
-  towa: null,
+  towa: {
+    pdf: "/portfolio/towa.pdf",
+    downloadName: "TOWA_Portfolio.pdf",
+    pages: [
+      { src: "/portfolio/towa/page-1.webp", alt: "TOWA 프로젝트 포스터", width: 2264, height: 3200 },
+    ],
+  },
 };
