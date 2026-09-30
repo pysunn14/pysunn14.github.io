@@ -23,6 +23,14 @@ export const resumeDocument: PdfDocumentData = {
 // A document is published as a PDF plus page previews, matching the Resume view.
 // Keep it null until both artifacts exist so unfinished projects expose no broken links.
 export const portfolioDocuments: Record<"beolmuri" | "towa", PdfDocumentData | null> = {
-  beolmuri: null,
+  beolmuri: {
+    pdf: "/portfolio/beolmuri.pdf",
+    downloadName: "Beolmuri_Portfolio.pdf",
+    pages: [
+      { src: "/portfolio/beolmuri/page-1.webp", alt: "별무리 포트폴리오, 1/3 페이지", width: 1132, height: 1600 },
+      { src: "/portfolio/beolmuri/page-2.webp", alt: "별무리 포트폴리오, 2/3 페이지", width: 1132, height: 1600 },
+      { src: "/portfolio/beolmuri/page-3.webp", alt: "별무리 포트폴리오, 3/3 페이지", width: 1132, height: 1600 },
+    ],
+  },
   towa: null,
 };
