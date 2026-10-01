@@ -54,6 +54,12 @@ export const DATA = {
         icon: Icons.github,
         navbar: true,
       },
+      LinkedIn: {
+        name: "LinkedIn",
+        url: "https://www.linkedin.com/in/minseok-kim-b59518440/",
+        icon: Icons.linkedin,
+        navbar: true,
+      },
       email: {
         name: "이메일",
         url: "mailto:kminseok14@ajou.ac.kr",
