@@ -26,6 +26,7 @@ interface Props {
   title: string;
   href?: string;
   dates: string;
+  description?: string;
   tags: readonly string[];
   image?: string;
   video?: string;
@@ -41,6 +42,7 @@ export function ProjectCard({
   title,
   href,
   dates,
+  description,
   tags,
   image,
   video,
@@ -98,6 +100,11 @@ export function ProjectCard({
           </div>
           {href && <ArrowUpRight className="pointer-events-none h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />}
         </div>
+        {description && (
+          <p className="break-keep text-sm leading-relaxed text-muted-foreground">
+            {description}
+          </p>
+        )}
         {links && links.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {links.map((link) => (

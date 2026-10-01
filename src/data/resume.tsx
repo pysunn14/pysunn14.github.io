@@ -9,8 +9,8 @@ export const DATA = {
   location: "수원",
   description: "AI 관련된 것이면 다 좋아합니다.",
   summary:
-    "소프트웨어 및 컴퓨터공학을 전공하고 있는 4학년 학부생입니다. 현재는 AI SW 마에스트로 제17기 연수생으로 활동하고 있습니다.",
-  researchInterests: "LLM Inference Optimization, Vision-Language Models, On-Device AI, GPU Computing",
+    "소프트웨어 및 컴퓨터공학을 전공하고 있는 4학년 학부생입니다. 현재는 AI SW 마에스트로 제17기 연수생으로 활동하고 있습니다. 문제 해결을 접할 수 있는 다양한 엔지니어링 분야에 관심이 많습니다.",
+  researchInterests: "Edge AI System, LLM Inference Optimization, Vision-Language Models, On-Device AI, GPU Computing, Algorithm",
   avatarUrl: "",
   ogImage: "",
   sections: {
@@ -130,6 +130,7 @@ export const DATA = {
   projects: [
     {
       slug: "beolmuri",
+      description: "별무리는 스마트폰에서 완전히 온디바이스로 실행되는 소형 언어 모델(sLM)을 통해 캐릭터와 대화하며 개인화된 경험을 제공하는 앱입니다. 그날의 중요한 기억을 매일 일기로 저장하며, 자연어로 캘린더 정리와 알람 설정 등의 네이티브 기능을 호출하여 작업하는 Agent 기능을 지원합니다.",
       title: "별무리 - 개인화 기억 기반 온디바이스 AI 캐릭터 에이전트 앱",
       href: "/portfolio/beolmuri",
       dates: "May 2026 – Present",

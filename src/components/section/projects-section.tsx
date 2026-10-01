@@ -21,6 +21,7 @@ export default function ProjectsSection({ showHeading = true, delay = BLUR_FADE_
                                 key={project.title}
                                 title={project.title}
                                 dates={project.dates}
+                                description={"description" in project ? project.description : undefined}
                                 tags={project.technologies}
                                 image={project.image}
                                 video={project.video}
