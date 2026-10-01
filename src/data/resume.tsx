@@ -152,6 +152,7 @@ export const DATA = {
     },
     {
       slug: "towa",
+      description: "TOWA는 만화 번역에 필요한 텍스트 인식, 번역, 배경 복원과 식자 작업을 하나의 편집 환경에서 처리하는 AI 기반 워크스테이션입니다. 원본 이미지와 복원된 배경, 번역 텍스트를 레이어로 분리해 관리하며, 자동 처리한 결과를 사용자가 직접 수정할 수 있습니다.",
       title: "TOWA — AI 만화 번역 워크스테이션",
       href: "/portfolio/towa",
       dates: "Mar 2026 – Jun 2026",
