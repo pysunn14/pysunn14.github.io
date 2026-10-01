@@ -7,6 +7,7 @@ import Markdown from "react-markdown";
 import ContactSection from "@/components/section/contact-section";
 import HonorsSection from "@/components/section/honors-section";
 import ProjectsSection from "@/components/section/projects-section";
+import RecentPostsSection, { type RecentPost } from "@/components/section/recent-posts-section";
 import WorkSection from "@/components/section/work-section";
 import { ArrowUpRight } from "lucide-react";
 
@@ -151,7 +152,7 @@ const sectionComponents: Record<string, React.ReactNode> = {
   ),
 };
 
-export default function HomePage() {
+export default function HomePage({ recentPosts }: { recentPosts: RecentPost[] }) {
   const orderedSections = Object.entries(DATA.sections)
     .filter(([, s]) => s.enabled)
     .sort(([, a], [, b]) => a.order - b.order)
@@ -205,6 +206,7 @@ export default function HomePage() {
           {sectionComponents[key]}
         </React.Fragment>
       ))}
+      <RecentPostsSection posts={recentPosts} />
     </main>
   );
 }
