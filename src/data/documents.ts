@@ -27,9 +27,10 @@ export const portfolioDocuments: Record<"beolmuri" | "towa", PdfDocumentData | n
     pdf: "/portfolio/beolmuri.pdf",
     downloadName: "Beolmuri_Portfolio.pdf",
     pages: [
-      { src: "/portfolio/beolmuri/page-1.webp", alt: "별무리 포트폴리오, 1/3 페이지", width: 1132, height: 1600 },
-      { src: "/portfolio/beolmuri/page-2.webp", alt: "별무리 포트폴리오, 2/3 페이지", width: 1132, height: 1600 },
-      { src: "/portfolio/beolmuri/page-3.webp", alt: "별무리 포트폴리오, 3/3 페이지", width: 1132, height: 1600 },
+      { src: "/portfolio/beolmuri/page-1.webp", alt: "별무리 포트폴리오, 1/4 페이지", width: 1132, height: 1600 },
+      { src: "/portfolio/beolmuri/page-2.webp", alt: "별무리 포트폴리오, 2/4 페이지", width: 1132, height: 1600 },
+      { src: "/portfolio/beolmuri/page-3.webp", alt: "별무리 포트폴리오, 3/4 페이지", width: 1132, height: 1600 },
+      { src: "/portfolio/beolmuri/page-4.webp", alt: "별무리 포트폴리오, 4/4 페이지", width: 1132, height: 1600 },
     ],
   },
   towa: {
