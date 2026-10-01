@@ -193,7 +193,7 @@ export const DATA = {
       logoUrl: "/logos/ajou-university.png",
       dates: "May 2026",
       result: "우수상 · 아주대학교 SW중심대학사업단장상",
-      description: "",
+      description: "교내 최대의 알고리즘 문제해결 경시대회입니다. Div.1은 소프트웨어융합대학 학생들이 경쟁합니다.",
     },
     {
       title: "2025 shake! 본선",
