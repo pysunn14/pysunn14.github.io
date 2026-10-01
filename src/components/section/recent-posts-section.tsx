@@ -1,10 +1,23 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { ArrowRight } from "lucide-react";
+import Markdown from "react-markdown";
+
+const postDate = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "Asia/Seoul",
+});
+
+const previewElements = [
+  "p", "strong", "em", "h1", "h2", "h3", "h4", "h5", "h6",
+  "ul", "ol", "li", "blockquote", "code", "br",
+];
 
 export interface RecentPost {
   id: string;
   title: string;
-  summary: string;
+  excerpt: string;
   publishedAt: string;
 }
 
@@ -24,27 +37,37 @@ export default function RecentPostsSection({ posts }: { posts: RecentPost[] }) {
             <ArrowRight className="size-3.5" aria-hidden />
           </a>
         </div>
-        <div className="divide-y divide-border border-y border-border">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
-            <a
+            <article
               key={post.id}
-              href={`/blog/${post.id}`}
-              className="group flex flex-col gap-2 py-5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-600 dark:focus-visible:outline-sky-400"
+              className="group min-w-0 overflow-hidden rounded-xl border border-border bg-card transition-shadow duration-200 hover:ring-2 hover:ring-muted"
             >
-              <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-                <h3 className="min-w-0 text-base font-semibold wrap-anywhere transition-colors group-hover:text-sky-600 dark:group-hover:text-sky-400">
-                  {post.title}
-                </h3>
-                <time dateTime={post.publishedAt} className="shrink-0 text-xs tabular-nums text-muted-foreground">
-                  {post.publishedAt}
-                </time>
-              </div>
-              {post.summary.trim() && (
-                <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground wrap-anywhere">
-                  {post.summary}
-                </p>
-              )}
-            </a>
+              <a
+                href={`/blog/${post.id}`}
+                aria-label={`${post.title} 읽기`}
+                className="flex h-full min-w-0 flex-col rounded-xl transition-colors active:bg-muted/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-sky-600 dark:focus-visible:ring-sky-400"
+              >
+                <div className="flex-1 p-5">
+                  <h3 className="line-clamp-2 text-base font-semibold wrap-anywhere transition-colors group-hover:text-sky-600 dark:group-hover:text-sky-400">
+                    {post.title}
+                  </h3>
+                  <div className="mt-3 max-h-48 overflow-hidden text-sm leading-relaxed text-muted-foreground wrap-anywhere [&>*+*]:mt-3 [&_:is(h1,h2,h3,h4,h5,h6,strong)]:font-semibold [&_:is(h1,h2,h3,h4,h5,h6,strong)]:text-foreground [&_ul]:list-disc [&_ol]:list-decimal [&_:is(ul,ol)]:pl-4">
+                    <Markdown allowedElements={previewElements} unwrapDisallowed skipHtml>
+                      {post.excerpt}
+                    </Markdown>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between gap-3 border-t border-border bg-background/50 px-4 py-3">
+                  <time dateTime={post.publishedAt} className="whitespace-nowrap text-xs tabular-nums text-muted-foreground">
+                    {postDate.format(new Date(post.publishedAt))}
+                  </time>
+                  <span className="inline-flex min-h-9 shrink-0 items-center rounded-md border border-border px-2.5 text-xs font-medium transition-colors group-hover:bg-muted">
+                    Read
+                  </span>
+                </div>
+              </a>
+            </article>
           ))}
         </div>
       </BlurFade>

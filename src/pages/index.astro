@@ -13,7 +13,8 @@ const recentPosts = (await getCollection("blog"))
   .map((post) => ({
     id: post.id,
     title: post.data.title,
-    summary: post.data.summary,
+    // Keep the home page payload to a short opening excerpt, not entire articles.
+    excerpt: (post.body?.trim() || post.data.summary).slice(0, 2000),
     publishedAt: post.data.publishedAt,
   }));
 ---
