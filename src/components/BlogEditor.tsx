@@ -1,23 +1,19 @@
 import { useEffect, useState, type SyntheticEvent } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { localDate, restoreDraft, refreshDraftDate } from "@/lib/blog-draft.mjs";
 
 type Draft = {
   title: string;
   publishedAt: string;
   summary: string;
   body: string;
+  dateMode: "today" | "manual";
 };
 
 const STORAGE_KEY = "pysunn-blog-draft";
-const EMPTY_DRAFT: Draft = { title: "", publishedAt: "", summary: "", body: "" };
+const EMPTY_DRAFT: Draft = { title: "", publishedAt: "", summary: "", body: "", dateMode: "today" };
 const fieldClass = "w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/50";
-
-function localDate() {
-  const now = new Date();
-  const offset = now.getTimezoneOffset() * 60_000;
-  return new Date(now.getTime() - offset).toISOString().slice(0, 10);
-}
 
 function slugFromTitle(title: string) {
   return title.normalize("NFKC").toLowerCase()
@@ -38,13 +34,7 @@ export default function BlogEditor({ remote = false }: { remote?: boolean }) {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        const restored = JSON.parse(stored) as Partial<Draft>;
-        setDraft({
-          title: restored.title || "",
-          publishedAt: restored.publishedAt || localDate(),
-          summary: restored.summary || "",
-          body: restored.body || "",
-        });
+        setDraft(restoreDraft(JSON.parse(stored), localDate()) as Draft);
       } catch {
         setDraft({ ...EMPTY_DRAFT, publishedAt: localDate() });
       }
@@ -55,13 +45,35 @@ export default function BlogEditor({ remote = false }: { remote?: boolean }) {
   }, []);
 
   useEffect(() => {
+    // Refresh at local midnight and after a suspended tab becomes active again.
+    let timer: ReturnType<typeof setTimeout>;
+    function refreshDate() {
+      clearTimeout(timer);
+      setDraft((current) => refreshDraftDate(current, localDate()));
+      const now = new Date();
+      const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+      timer = setTimeout(refreshDate, midnight.getTime() - now.getTime());
+    }
+    refreshDate();
+    window.addEventListener("focus", refreshDate);
+    window.addEventListener("pageshow", refreshDate);
+    document.addEventListener("visibilitychange", refreshDate);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("focus", refreshDate);
+      window.removeEventListener("pageshow", refreshDate);
+      document.removeEventListener("visibilitychange", refreshDate);
+    };
+  }, []);
+
+  useEffect(() => {
     if (ready) localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
   }, [draft, ready]);
 
   function update<K extends keyof Draft>(key: K, value: Draft[K]) {
     setMessage("");
     setSavedSlug("");
-    setDraft((current) => ({ ...current, [key]: value }));
+    setDraft((current) => ({ ...current, [key]: value, ...(key === "publishedAt" ? { dateMode: "manual" as const } : {}) }));
   }
 
   async function save(event: SyntheticEvent<HTMLFormElement>) {
@@ -105,10 +117,17 @@ export default function BlogEditor({ remote = false }: { remote?: boolean }) {
             <span className="mb-2 block text-sm font-medium">제목</span>
             <input className={`${fieldClass} text-lg font-medium`} value={draft.title} onChange={(event) => update("title", event.target.value)} maxLength={120} placeholder="글 제목" required />
           </label>
-          <label className="block sm:max-w-44">
-            <span className="mb-2 block text-sm font-medium">날짜</span>
-            <input type="date" className={fieldClass} value={draft.publishedAt} onChange={(event) => update("publishedAt", event.target.value)} required />
-          </label>
+          <div className="sm:max-w-44">
+            <div className="mb-2 flex items-center justify-between text-sm font-medium">
+              <label htmlFor="published-at">날짜</label>
+              {draft.dateMode === "manual" && <button type="button" className="text-xs text-muted-foreground hover:text-foreground" onClick={() => {
+                setMessage("");
+                setSavedSlug("");
+                setDraft((current) => ({ ...current, publishedAt: localDate(), dateMode: "today" }));
+              }}>오늘</button>}
+            </div>
+            <input id="published-at" type="date" className={fieldClass} value={draft.publishedAt} onChange={(event) => update("publishedAt", event.target.value)} required />
+          </div>
           <label className="block">
             <span className="mb-2 block text-sm font-medium">요약</span>
             <textarea className={`${fieldClass} min-h-20 resize-y`} value={draft.summary} onChange={(event) => update("summary", event.target.value)} maxLength={300} placeholder="글 목록과 검색 결과에 표시할 짧은 소개" required />

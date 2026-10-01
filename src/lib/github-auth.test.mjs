@@ -38,7 +38,12 @@ test("GitHub login is tied to the initiating browser and callback URL", async ()
   assert.equal(await verifyOwner(ownerRequest, config), true);
   assert.equal(await verifyOwner(ownerRequest, { ...config, BLOG_OWNER_GITHUB_ID: "123" }), false);
   assert.equal(await verifyOwner(new Request("https://elsewhere.example/write", { headers: { Cookie: session.split(";")[0] } }), config), false);
-  const tampered = session.split(";")[0].replace(/.$/, "x");
+  // Change signature bits, not the trailing base64url padding bits.
+  const cookieValue = session.split(";")[0];
+  const signatureStart = cookieValue.lastIndexOf(".") + 1;
+  const tampered = cookieValue.slice(0, signatureStart)
+    + (cookieValue[signatureStart] === "A" ? "B" : "A")
+    + cookieValue.slice(signatureStart + 1);
   assert.equal(await verifyOwner(new Request("https://pysunn.me/write", { headers: { Cookie: tampered } }), config), false);
   assert.equal(await verifyOwner(new Request("https://pysunn.me/write"), config), false);
 });
