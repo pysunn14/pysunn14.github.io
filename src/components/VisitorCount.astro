@@ -1,0 +1,53 @@
+<footer class="mt-12 text-center text-xs text-muted-foreground">
+  <span data-visitor-count data-state="pending" title="같은 브라우저의 방문을 한국 시간 기준 하루 한 번 집계합니다.">
+    Today <span data-visitor-total>…</span>
+  </span>
+</footer>
+
+<script>
+  const counter = document.querySelector<HTMLElement>("[data-visitor-count]");
+  const total = counter?.querySelector<HTMLElement>("[data-visitor-total]");
+  const countTitle = counter?.title ?? "";
+  let inFlight = false;
+
+  async function refresh() {
+    if (!counter || !total || inFlight) return;
+    inFlight = true;
+    try {
+      const getCount = async () => {
+        const options = { credentials: "same-origin" as const, cache: "no-store" as const, signal: AbortSignal.timeout(10000) };
+        const identity = await fetch("/api/visits", options);
+        if (!identity.ok) throw new Error(`Visitor identity request failed: ${identity.status}`);
+        // Development only reads the local database. Public pages register a visit.
+        if (import.meta.env.DEV) return identity.json();
+        const response = await fetch("/api/visits", { ...options, method: "POST" });
+        if (!response.ok) throw new Error(`Visitor count request failed: ${response.status}`);
+        return response.json();
+      };
+      // Serialize the identity handshake across tabs so first-time concurrent
+      // visits share one cookie. Skipping this can overcount the first visit.
+      if (!import.meta.env.DEV && !navigator.locks) throw new Error("Web Locks are unavailable");
+      const data = import.meta.env.DEV ? await getCount() : await navigator.locks.request("pysunn-visitor", getCount);
+      if (!data || typeof data !== "object" || !("today" in data) || typeof data.today !== "number"
+        || !Number.isSafeInteger(data.today) || data.today < 0
+        || !("date" in data) || typeof data.date !== "string") throw new Error("Invalid visitor count");
+      total.textContent = data.today.toLocaleString("en-US");
+      counter.dataset.state = "ready";
+      counter.dataset.date = data.date;
+      counter.title = countTitle;
+    } catch (error) {
+      total.textContent = "—";
+      counter.dataset.state = "error";
+      counter.title = "방문자 수를 불러오지 못했습니다.";
+      console.error("Visitor count failed", error);
+    } finally {
+      inFlight = false;
+    }
+  }
+
+  void refresh();
+  window.addEventListener("pageshow", () => void refresh());
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") void refresh();
+  });
+</script>

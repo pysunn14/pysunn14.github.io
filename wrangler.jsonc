@@ -9,6 +9,13 @@
 		"directory": "./dist",
 		"binding": "ASSETS"
 	},
+	"d1_databases": [
+		{
+			"binding": "VISITOR_DB",
+			"database_name": "pysunn-visitors",
+			"database_id": "89af4b51-2231-49f0-a27f-cede4a4ad354"
+		}
+	],
 	"observability": {
 		"enabled": true
 	},

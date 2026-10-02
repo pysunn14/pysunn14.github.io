@@ -4,6 +4,7 @@ import { DATA } from "@/data/resume";
 import { CONFIG } from "@/data/config";
 import NavbarIsland from "@/components/NavbarIsland";
 import SiteNav from "@/components/SiteNav.astro";
+import VisitorCount from "@/components/VisitorCount.astro";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 
 interface Props {
@@ -35,6 +36,7 @@ const ogImage = image
 
 const { light, dark, radius } = CONFIG.theme;
 const { baseFontSize } = CONFIG.typography;
+const showVisitorCount = Astro.url.pathname === "/" || /^\/(blog|portfolio)(\/|$)/.test(Astro.url.pathname);
 ---
 
 <html
@@ -157,6 +159,7 @@ const { baseFontSize } = CONFIG.typography;
     <div class={`relative z-10 ${wide ? "max-w-4xl" : "max-w-2xl"} mx-auto py-12 pb-24 sm:py-24 px-6`}>
       <SiteNav />
       <slot />
+      {showVisitorCount && <VisitorCount />}
     </div>
 
     <!-- Navbar: ThemeProvider + TooltipProvider + Navbar all in one React island -->

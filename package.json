@@ -11,6 +11,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "node --test src/lib/*.test.mjs tools/*.test.mjs",
+    "visitors:init": "pnpm dlx wrangler@4.87.0 d1 execute VISITOR_DB --local --file=migrations/0001_visitors.sql --config=wrangler.jsonc",
     "astro": "astro",
     "generate-types": "wrangler types"
   },
