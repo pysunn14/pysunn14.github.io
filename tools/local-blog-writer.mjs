@@ -1,43 +1,13 @@
 import { link, mkdir, unlink, writeFile } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
 import { join } from "node:path";
+import { createPostSource } from "../src/lib/blog-authoring.mjs";
 
 const MAX_REQUEST_BYTES = 1_000_000;
-const SLUG_PATTERN = /^[\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)*$/u;
-
-function requiredText(value, name, maxLength) {
-  if (typeof value !== "string" || !value.trim() || value.length > maxLength) {
-    throw new TypeError(`${name} must be non-empty and at most ${maxLength} characters`);
-  }
-  return value.trim();
-}
-
-function validDate(value) {
-  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
-    throw new TypeError("publishedAt must be a YYYY-MM-DD date");
-  }
-  const parsed = new Date(`${value}T00:00:00Z`);
-  if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== value) {
-    throw new TypeError("publishedAt must be a real date");
-  }
-  return value;
-}
 
 export async function savePost(directory, input) {
-  if (!input || typeof input !== "object") {
-    throw new TypeError("post must be an object");
-  }
-
-  const title = requiredText(input.title, "title", 120);
-  const slug = requiredText(input.slug, "slug", 80).normalize("NFC");
-  if (!SLUG_PATTERN.test(slug)) {
-    throw new TypeError("slug must contain only letters, numbers, and single hyphens");
-  }
-  const publishedAt = validDate(input.publishedAt);
-  const summary = requiredText(input.summary, "summary", 300);
-  const body = requiredText(input.body, "body", 200_000);
-
-  const source = `---\ntitle: ${JSON.stringify(title)}\npublishedAt: ${JSON.stringify(publishedAt)}\nsummary: ${JSON.stringify(summary)}\n---\n\n${body}\n`;
+  // Local files and GitHub commits share the same validation and frontmatter.
+  const { slug, source } = createPostSource(input);
   await mkdir(directory, { recursive: true });
 
   const target = join(directory, `${slug}.md`);

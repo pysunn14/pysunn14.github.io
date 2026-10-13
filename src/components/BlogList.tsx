@@ -1,29 +1,38 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { ChevronRight } from "lucide-react";
+import { useSyncExternalStore, type MouseEvent } from "react";
+import { BLOG_CATEGORIES } from "@/lib/blog-categories.mjs";
+import { getBlogPage, blogPageHref, type BlogPost, type CategoryFilter } from "@/lib/blog-list";
 
 const BLUR_FADE_DELAY = 0.04;
 
-interface Post {
-  id: string;
-  title: string;
-  publishedAt: string;
+function subscribeToLocation(callback: () => void) {
+  window.addEventListener("popstate", callback);
+  return () => window.removeEventListener("popstate", callback);
 }
 
-interface Pagination {
-  page: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPreviousPage: boolean;
+const currentSearch = () => window.location.search;
+const serverSearch = () => "";
+const filters: CategoryFilter[] = ["All", ...BLOG_CATEGORIES];
+
+function navigate(event: MouseEvent<HTMLAnchorElement>) {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+  event.preventDefault();
+  if (event.currentTarget.href === window.location.href) return;
+  window.history.pushState(null, "", event.currentTarget.href);
+  // Native links still support sharing and modified clicks. Notify the island
+  // after a local query change; Back/Forward already dispatch native popstate.
+  window.dispatchEvent(new PopStateEvent("popstate"));
+  document.getElementById("blog")?.scrollIntoView({ block: "start" });
 }
 
 interface BlogListProps {
-  posts: Post[];
-  allPostsCount: number;
-  pagination: Pagination;
-  pageSize: number;
+  posts: BlogPost[];
 }
 
-export default function BlogList({ posts, allPostsCount, pagination, pageSize }: BlogListProps) {
+export default function BlogList({ posts }: BlogListProps) {
+  const search = useSyncExternalStore(subscribeToLocation, currentSearch, serverSearch);
+  const { category, notice, items, totalItems, pagination } = getBlogPage(posts, search);
   return (
     <section id="blog">
       <BlurFade delay={BLUR_FADE_DELAY}>
@@ -31,22 +40,37 @@ export default function BlogList({ posts, allPostsCount, pagination, pageSize }:
           <h1 className="text-2xl font-semibold tracking-tight">
             Blog{" "}
             <span className="ml-1 bg-card border border-border rounded-md px-2 py-1 text-muted-foreground text-sm">
-              글 {allPostsCount}개
+              글 {totalItems}개
             </span>
           </h1>
           <a href="/write" className="inline-flex min-h-11 items-center rounded-lg border border-border px-3 text-sm transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-600 dark:focus-visible:outline-sky-400 active:bg-secondary">Write</a>
         </div>
-        <p className="text-sm text-muted-foreground mb-8">
+        <p className="text-sm text-muted-foreground mb-5">
           연구와 개발 과정에서 정리한 글을 올릴 예정입니다.
         </p>
+        <nav aria-label="글 카테고리" className="mb-8 flex items-center gap-6 border-b border-border">
+          {filters.map((filter) => (
+            <a
+              key={filter}
+              href={blogPageHref(filter)}
+              onClick={navigate}
+              aria-current={category === filter ? "page" : undefined}
+              className={`inline-flex min-h-11 items-center gap-2 whitespace-nowrap border-b-2 px-0.5 text-sm font-medium transition-colors focus-visible:rounded-sm focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-sky-600 dark:focus-visible:outline-sky-400 ${category === filter ? "border-sky-700 text-sky-700 dark:border-sky-400 dark:text-sky-400" : "border-transparent text-muted-foreground hover:text-foreground"}`}
+            >
+              {filter}
+              <span className="text-xs tabular-nums text-muted-foreground">{filter === "All" ? posts.length : posts.filter((post) => post.category === filter).length}</span>
+            </a>
+          ))}
+        </nav>
+        {notice && <p role="status" className="mb-5 text-sm text-muted-foreground">{notice}</p>}
       </BlurFade>
 
-      {posts.length > 0 ? (
+      {items.length > 0 ? (
         <>
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
             <div className="flex flex-col gap-5">
-              {posts.map((post, id) => {
-                const indexNumber = (pagination.page - 1) * pageSize + id + 1;
+              {items.map((post, id) => {
+                const indexNumber = (pagination.page - 1) * pagination.pageSize + id + 1;
                 return (
                   <BlurFade delay={BLUR_FADE_DELAY * 3 + id * 0.05} key={post.id}>
                     <a
@@ -66,8 +90,9 @@ export default function BlogList({ posts, allPostsCount, pagination, pageSize }:
                             />
                           </span>
                         </p>
-                        <p className="text-xs text-muted-foreground">
-                          {post.publishedAt}
+                        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                          <time dateTime={post.publishedAt}>{post.publishedAt}</time>
+                          <span>{post.category}</span>
                         </p>
                       </div>
                     </a>
@@ -86,7 +111,8 @@ export default function BlogList({ posts, allPostsCount, pagination, pageSize }:
                 <div className="flex gap-2 sm:justify-end">
                   {pagination.hasPreviousPage ? (
                     <a
-                      href={`/blog?page=${pagination.page - 1}`}
+                      href={blogPageHref(category, pagination.page - 1)}
+                      onClick={navigate}
                       className="h-8 w-fit px-2 flex items-center justify-center text-sm border border-border rounded-lg hover:bg-accent/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     >
                       Previous
@@ -98,7 +124,8 @@ export default function BlogList({ posts, allPostsCount, pagination, pageSize }:
                   )}
                   {pagination.hasNextPage ? (
                     <a
-                      href={`/blog?page=${pagination.page + 1}`}
+                      href={blogPageHref(category, pagination.page + 1)}
+                      onClick={navigate}
                       className="h-8 w-fit px-2 flex items-center justify-center text-sm border border-border rounded-lg hover:bg-accent/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     >
                       Next
@@ -117,7 +144,7 @@ export default function BlogList({ posts, allPostsCount, pagination, pageSize }:
         <BlurFade delay={BLUR_FADE_DELAY * 2}>
           <div className="flex flex-col items-center justify-center py-12 px-4 border border-border rounded-xl">
             <p className="text-muted-foreground text-center">
-              아직 게시한 글이 없습니다.
+              {category === "All" ? "아직 게시한 글이 없습니다." : `아직 ${category} 글이 없습니다.`}
             </p>
           </div>
         </BlurFade>

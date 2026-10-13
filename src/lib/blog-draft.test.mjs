@@ -5,13 +5,21 @@ import { localDate, restoreDraft, refreshDraftDate } from "./blog-draft.mjs";
 test("restores draft content with today's date instead of an old automatic date", () => {
   const stored = { title: "제목", publishedAt: "2026-09-30", summary: "요약", body: "본문" };
   const draft = restoreDraft(stored, "2026-10-02");
-  assert.deepEqual(draft, { ...stored, publishedAt: "2026-10-02", dateMode: "today" });
+  assert.deepEqual(draft, { ...stored, category: "Daily", publishedAt: "2026-10-02", dateMode: "today" });
 });
 
 test("keeps a date the author explicitly selected when restoring and changing days", () => {
   const stored = { title: "제목", publishedAt: "2026-09-28", summary: "요약", body: "본문", dateMode: "manual" };
-  assert.deepEqual(restoreDraft(stored, "2026-10-02"), stored);
+  assert.deepEqual(restoreDraft(stored, "2026-10-02"), { ...stored, category: "Daily" });
   assert.equal(refreshDraftDate(stored, "2026-10-03"), stored);
+});
+
+test("restores the selected category along with unfinished text", () => {
+  const stored = { title: "문제 풀이", category: "Algorithm", summary: "요약", body: "작성 중인 풀이" };
+  const draft = restoreDraft(stored, "2026-10-13");
+  assert.equal(draft.category, "Algorithm");
+  assert.equal(draft.body, stored.body);
+  assert.equal(refreshDraftDate(draft, "2026-10-14").category, "Algorithm");
 });
 
 test("updates only an automatic date when the local calendar day changes", () => {

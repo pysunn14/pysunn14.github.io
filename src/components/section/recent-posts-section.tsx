@@ -1,6 +1,7 @@
 import BlurFade from "@/components/magicui/blur-fade";
 import { ArrowRight } from "lucide-react";
 import Markdown from "react-markdown";
+import type { BlogCategory } from "@/lib/blog-list";
 
 const postDate = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -19,6 +20,7 @@ export interface RecentPost {
   title: string;
   excerpt: string;
   publishedAt: string;
+  category: BlogCategory;
 }
 
 export default function RecentPostsSection({ posts }: { posts: RecentPost[] }) {
@@ -59,9 +61,12 @@ export default function RecentPostsSection({ posts }: { posts: RecentPost[] }) {
                   </div>
                 </div>
                 <div className="flex items-center justify-between gap-3 border-t border-border bg-background/50 px-4 py-3">
-                  <time dateTime={post.publishedAt} className="whitespace-nowrap text-xs tabular-nums text-muted-foreground">
-                    {postDate.format(new Date(post.publishedAt))}
-                  </time>
+                  <div className="flex min-w-0 flex-col gap-1 text-xs text-muted-foreground">
+                    <time dateTime={post.publishedAt} className="whitespace-nowrap tabular-nums">
+                      {postDate.format(new Date(post.publishedAt))}
+                    </time>
+                    <span>{post.category}</span>
+                  </div>
                   <span className="inline-flex min-h-9 shrink-0 items-center rounded-md border border-border px-2.5 text-xs font-medium transition-colors group-hover:bg-muted">
                     Read
                   </span>

@@ -1,3 +1,5 @@
+import { postCategory } from "./blog-categories.mjs";
+
 const SLUG_PATTERN = /^[\p{L}\p{N}]+(?:-[\p{L}\p{N}]+)*$/u;
 
 function requiredText(value, name, maxLength) {
@@ -18,10 +20,11 @@ export function createPostSource(input) {
     throw new TypeError("publishedAt must be a real YYYY-MM-DD date");
   }
   const summary = requiredText(input.summary, "summary", 300);
+  const category = postCategory(input.category);
   const body = requiredText(input.body, "body", 200_000);
   return {
     slug,
-    source: `---\ntitle: ${JSON.stringify(title)}\npublishedAt: ${JSON.stringify(publishedAt)}\nsummary: ${JSON.stringify(summary)}\n---\n\n${body}\n`,
+    source: `---\ntitle: ${JSON.stringify(title)}\npublishedAt: ${JSON.stringify(publishedAt)}\ncategory: ${JSON.stringify(category)}\nsummary: ${JSON.stringify(summary)}\n---\n\n${body}\n`,
   };
 }
 

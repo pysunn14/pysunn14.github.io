@@ -1,3 +1,5 @@
+import { postCategory } from "./blog-categories.mjs";
+
 export function localDate(now = new Date()) {
   const offset = now.getTimezoneOffset() * 60_000;
   return new Date(now.getTime() - offset).toISOString().slice(0, 10);
@@ -7,6 +9,7 @@ export function restoreDraft(stored, today) {
   const manual = stored?.dateMode === "manual" && stored.publishedAt;
   return {
     title: stored?.title || "",
+    category: postCategory(stored?.category),
     publishedAt: manual ? stored.publishedAt : today,
     summary: stored?.summary || "",
     body: stored?.body || "",

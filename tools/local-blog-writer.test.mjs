@@ -16,10 +16,11 @@ const post = {
 test("saves a Markdown post with valid frontmatter", async () => {
   const directory = await mkdtemp(join(tmpdir(), "blog-writer-"));
   try {
-    const result = await savePost(directory, post);
+    const result = await savePost(directory, { ...post, category: "Algorithm" });
     assert.equal(result.slug, post.slug);
     const source = await readFile(join(directory, "첫-번째-글.md"), "utf8");
     assert.match(source, /title: "첫 번째 글"/);
+    assert.match(source, /category: "Algorithm"/);
     assert.match(source, /summary: "따옴표 \\"포함\\" 요약"/);
     assert.match(source, /## 본문\n\n내용입니다\./);
   } finally {
@@ -42,6 +43,7 @@ test("rejects paths and impossible dates", async () => {
   try {
     await assert.rejects(savePost(directory, { ...post, slug: "../other" }), /slug/);
     await assert.rejects(savePost(directory, { ...post, publishedAt: "2026-02-30" }), /publishedAt/);
+    await assert.rejects(savePost(directory, { ...post, category: "Unknown" }), /category/);
   } finally {
     await rm(directory, { recursive: true, force: true });
   }

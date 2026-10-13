@@ -7,6 +7,7 @@ import { formatDate } from "@/lib/utils";
 import { mdxComponents } from "@/mdx-components";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import GiscusComments from "@/components/GiscusComments.astro";
+import { blogPageHref } from "@/lib/blog-list";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -25,7 +26,7 @@ export async function getStaticPaths() {
 }
 
 const { post, previousPost, nextPost } = Astro.props;
-const { title, publishedAt, summary, image } = post.data;
+const { title, publishedAt, summary, image, category } = post.data;
 const slug = post.id;
 
 const { Content } = await render(post);
@@ -74,9 +75,10 @@ const jsonLd = JSON.stringify({
       >
         {title}
       </h1>
-      <p class="text-sm text-muted-foreground">
-        {formatDate(publishedAt)}
-      </p>
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+        <time datetime={publishedAt}>{formatDate(publishedAt)}</time>
+        <a href={blogPageHref(category)} class="transition-colors hover:text-sky-600 dark:hover:text-sky-400 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-600 dark:focus-visible:outline-sky-400">{category}</a>
+      </div>
     </div>
     <div class="my-6 flex w-full items-center">
       <div

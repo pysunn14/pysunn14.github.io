@@ -10,6 +10,14 @@ The public site runs as an Astro Cloudflare Worker. Blog posts are Markdown file
 4. Create a fine-grained GitHub personal access token limited to this repository with **Contents: Read and write**. Store it as the Worker secret `BLOG_GITHUB_TOKEN`. This token is used only by the write API to add posts to `main`. The token expires after 90 days and must be renewed before then.
 5. Attach `pysunn.me` to `pysunn-portfolio` as a Custom Domain in Cloudflare. The domain is deliberately omitted from `wrangler.jsonc`: subsequent code deployments leave the existing connection in place and need only Worker Editor permission. Deploy and verify public pages at `https://pysunn.me/`, then visit `/write` and sign in. After publishing a real post, confirm the resulting GitHub Actions deployment and public article.
 
-The login flow uses a short-lived signed state cookie and PKCE. The owner session is a signed, HTTP-only, secure cookie valid for 12 hours. The write API validates that cookie again, requires a same-origin JSON request, and refuses to overwrite an existing slug. Without the configured secrets, login and writing fail closed. The public blog has no writing control; the owner can open `/write` directly.
+The login flow uses a short-lived signed state cookie and PKCE. The owner session is a signed, HTTP-only, secure cookie valid for 12 hours. The write API validates that cookie again, requires a same-origin JSON request, and refuses to overwrite an existing slug. Without the configured secrets, login and writing fail closed. The blog's Write link opens `/write`, which requires owner authentication in production.
 
 GitHub Discussions and the giscus GitHub app are required for comments. The blog uses the repository's Announcements category and maps one discussion to each post pathname. A discussion is created when its first comment is submitted.
+
+## Categories
+
+Each post has one frontmatter `category`: `Algorithm` or `Daily`. Unclassified posts and drafts default to `Daily`. The writer saves the selected category in both Markdown and browser drafts. Local and remote publication use the same `createPostSource` validation.
+
+The blog's `All`, `Algorithm`, and `Daily` filters use `/blog?category=algorithm` and `/blog?category=daily`. Page links retain that filter; selecting a category starts at page one. The prerendered page sends all post metadata to the React island, which filters before pagination and follows query changes and browser Back/Forward. Article paths and giscus mappings do not depend on category.
+
+For development inspection, `node tools/agentctl.mjs categories` lists the categories. `list --search '?category=algorithm&page=2'` accepts an array of post metadata on stdin and returns the selected page as JSON. `source` accepts a new-post payload; `draft --today YYYY-MM-DD` accepts a saved draft. These commands use the application core and are excluded from browser and Worker bundles.

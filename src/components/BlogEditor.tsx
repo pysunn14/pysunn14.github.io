@@ -2,17 +2,20 @@ import { useEffect, useState, type SyntheticEvent } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { localDate, restoreDraft, refreshDraftDate } from "@/lib/blog-draft.mjs";
+import { BLOG_CATEGORIES, DEFAULT_BLOG_CATEGORY, postCategory } from "@/lib/blog-categories.mjs";
+import type { BlogCategory } from "@/lib/blog-list";
 
 type Draft = {
   title: string;
   publishedAt: string;
   summary: string;
   body: string;
+  category: BlogCategory;
   dateMode: "today" | "manual";
 };
 
 const STORAGE_KEY = "pysunn-blog-draft";
-const EMPTY_DRAFT: Draft = { title: "", publishedAt: "", summary: "", body: "", dateMode: "today" };
+const EMPTY_DRAFT: Draft = { title: "", publishedAt: "", summary: "", body: "", category: DEFAULT_BLOG_CATEGORY, dateMode: "today" };
 const fieldClass = "w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-foreground/50";
 
 function slugFromTitle(title: string) {
@@ -117,16 +120,24 @@ export default function BlogEditor({ remote = false }: { remote?: boolean }) {
             <span className="mb-2 block text-sm font-medium">제목</span>
             <input className={`${fieldClass} text-lg font-medium`} value={draft.title} onChange={(event) => update("title", event.target.value)} maxLength={120} placeholder="글 제목" required />
           </label>
-          <div className="sm:max-w-44">
-            <div className="mb-2 flex items-center justify-between text-sm font-medium">
-              <label htmlFor="published-at">날짜</label>
-              {draft.dateMode === "manual" && <button type="button" className="text-xs text-muted-foreground hover:text-foreground" onClick={() => {
-                setMessage("");
-                setSavedSlug("");
-                setDraft((current) => ({ ...current, publishedAt: localDate(), dateMode: "today" }));
-              }}>오늘</button>}
+          <div className="grid gap-5 sm:max-w-sm sm:grid-cols-2">
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium">카테고리</span>
+              <select className={fieldClass} value={draft.category} onChange={(event) => update("category", postCategory(event.target.value))}>
+                {BLOG_CATEGORIES.map((category) => <option key={category} value={category}>{category}</option>)}
+              </select>
+            </label>
+            <div>
+              <div className="mb-2 flex items-center justify-between text-sm font-medium">
+                <label htmlFor="published-at">날짜</label>
+                {draft.dateMode === "manual" && <button type="button" className="text-xs text-muted-foreground hover:text-foreground" onClick={() => {
+                  setMessage("");
+                  setSavedSlug("");
+                  setDraft((current) => ({ ...current, publishedAt: localDate(), dateMode: "today" }));
+                }}>오늘</button>}
+              </div>
+              <input id="published-at" type="date" className={fieldClass} value={draft.publishedAt} onChange={(event) => update("publishedAt", event.target.value)} required />
             </div>
-            <input id="published-at" type="date" className={fieldClass} value={draft.publishedAt} onChange={(event) => update("publishedAt", event.target.value)} required />
           </div>
           <label className="block">
             <span className="mb-2 block text-sm font-medium">요약</span>
@@ -143,7 +154,7 @@ export default function BlogEditor({ remote = false }: { remote?: boolean }) {
             <div className="mb-2 text-sm font-medium">미리보기</div>
             <div className="min-h-[32rem] rounded-lg border border-border bg-card px-5 py-5">
               <h2 className="break-words text-2xl font-semibold tracking-tight">{draft.title || "글 제목"}</h2>
-              <p className="mt-2 text-xs text-muted-foreground">{draft.publishedAt}</p>
+              <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground"><span>{draft.publishedAt}</span><span>{draft.category}</span></p>
               {draft.summary && <p className="mt-5 border-l-2 border-border pl-3 text-sm text-muted-foreground">{draft.summary}</p>}
               <div className="prose prose-sm mt-6 max-w-none break-words text-foreground dark:prose-invert">
                 {draft.body ? <ReactMarkdown remarkPlugins={[remarkGfm]}>{draft.body}</ReactMarkdown> : <p className="text-muted-foreground">본문 미리보기</p>}
