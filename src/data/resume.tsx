@@ -80,7 +80,7 @@ export const DATA = {
       start: "2026.04",
       end: undefined,
       description:
-        "AI 개발자로 iOS 온디바이스 small Language Model의 구현 및 최적화를 담당했습니다.",
+        "과학기술정보통신부 주최, 정보통신기획평가원과 한국정보산업연합회 주관 과정입니다. AI 개발자로 iOS 온디바이스 small Language Model의 구현 및 최적화를 담당했습니다.",
       team: {
         name: "감히사람이에이전트를이기려해",
         members: [
