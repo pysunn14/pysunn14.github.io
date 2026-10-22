@@ -10,7 +10,7 @@ export const DATA = {
   description: "저는 AI와 함께 정답이 없는 문제를 고민하고 풀어 나가는 것을 즐깁니다.",
   summary:
     "소프트웨어 및 컴퓨터공학을 전공하고 있는 4학년 학부생입니다. 현재는 AI SW 마에스트로 제17기 연수생으로 활동하고 있습니다. 문제 해결을 접할 수 있는 다양한 엔지니어링 분야에 관심이 많습니다.",
-  researchInterests: "Edge AI System, LLM Inference Optimization, Vision-Language Models, On-Device AI, GPU Computing, Algorithm",
+  researchInterests: "Algorithm, On-Device AI, LLM",
   avatarUrl: "",
   ogImage: "",
   sections: {
