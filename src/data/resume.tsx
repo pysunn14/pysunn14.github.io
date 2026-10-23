@@ -26,7 +26,7 @@ export const DATA = {
     publication: { order: 7, enabled: true, heading: "Publication" },
     honors: {
       order: 8, enabled: true,
-      heading: "Activities & Honors",
+      heading: "Honors & Scholarships",
     },
     contact: {
       order: 9, enabled: true,
@@ -102,6 +102,18 @@ export const DATA = {
       end: "2026.03",
       description:
         "학부연구생으로 MLLM, Vision Language Models의 Spatial Reasoning을 연구했습니다.",
+    },
+    {
+      company: "A.N.S.I., 아주대학교",
+      href: "",
+      badges: [],
+      location: "수원",
+      title: "알고리즘 소학회",
+      logoUrl: "/logos/ansi.png",
+      start: "2024.03",
+      end: undefined,
+      description:
+        "C++ 문제풀이 스터디와 ICPC 팀 연습에 참여하고 SCPC, UCPC 등 대회에 출전했습니다.",
     },
     {
       company: "국군지휘통신사령부 CNOC",
@@ -183,16 +195,16 @@ export const DATA = {
     {
       title: "제5회 대학 연합 아주 소중한 딥러닝 챌린지",
       logoUrl: "/logos/kaggle.png",
-      dates: "Sep 2026",
-      result: "3등상 · 전체 5위",
-      description: "Dr. GRPO RLVR | SRGen Test-time Scailing | Majority Voting",
+      dates: "Oct 2026",
+      result: "3등상 · 전체 5위 · 6개 대학 SW중심대학사업단",
+      description: "Dr. GRPO 기반 RLVR, SRGen Test-time Scaling, Majority Voting을 적용했습니다.",
     },
     {
       title: "제25회 TOPCIT",
       logoUrl: "/logos/ajou-university.png",
       dates: "May 2026",
       result: "교내 성적우수자 입선 · 아주대학교 AI융합교육원장상",
-      description: "",
+      description: "소프트웨어 역량 평가 TOPCIT에서 교내 성적우수자로 선정되었습니다.",
     },
     {
       title: "아주대학교 프로그래밍 경시대회(APC) Div.1",
@@ -212,15 +224,15 @@ export const DATA = {
       title: "제4회 대학 연합 아주 소중한 딥러닝 챌린지",
       logoUrl: "/logos/kaggle.png",
       dates: "Oct 2025",
-      result: "2등상 · 전체 3위",
-      description: "5 Tasks Multitask Learning, CoT | 4bit QLoRA Fine-tuning",
+      result: "2등상 · 전체 3위 · 6개 대학 SW중심대학사업단",
+      description: "5개 태스크 멀티태스크 학습에 CoT와 4bit QLoRA 파인튜닝을 적용했습니다.",
     },
     {
-      title: "Centroid Cup",
+      title: "2025 Centroid Cup",
       logoUrl: "/logos/ansi.png",
       dates: "Sep 2025",
-      result: "전체 6위 · 아주대학교 1등상 특별상 · 팀 낌민쎢",
-      description: "국민대학교, 중앙대학교, 인하대학교, 아주대학교 연합 알고리즘 대회입니다.",
+      result: "전체 6위 · 아주대학교 1등상 특별상",
+      description: "국민대, 중앙대, 인하대, 아주대 연합 알고리즘 대회에 팀 낌민쎢으로 참가했습니다.",
     },
     {
       title: "2025 아주톤",
@@ -232,23 +244,16 @@ export const DATA = {
     {
       title: "모각소",
       logoUrl: "/logos/ajou-university.png",
-      dates: "2024–2026",
+      dates: "2024 – 2026",
       result: "우수상 2회 · 장려상 1회",
       description: "2024 동계와 2025 하계 우수상, 2026 하계 장려상을 받았습니다.",
     },
     {
       title: "율곡장학",
       logoUrl: "/logos/ajou-university.png",
-      dates: "2021–2026",
+      dates: "2021 – 2026",
       result: "4개 학기 수혜",
       description: "2021-1, 2025-1, 2025-2, 2026-1학기에 수혜했습니다. 총액 약 US$6,900.",
-    },
-    {
-      title: "A.N.S.I. 알고리즘 소학회",
-      logoUrl: "/logos/ansi.png",
-      dates: "Mar 2024 – Sep 2026",
-      result: "아주대학교 소학회 활동",
-      description: "C++ 문제풀이 스터디와 ICPC 팀 연습에 참여하고 SCPC, UCPC 등 대회에 출전했습니다.",
     },
   ],
 } as const;
