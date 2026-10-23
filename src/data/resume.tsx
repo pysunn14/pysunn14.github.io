@@ -196,7 +196,7 @@ export const DATA = {
       title: "제5회 대학 연합 아주 소중한 딥러닝 챌린지",
       logoUrl: "/logos/kaggle.png",
       dates: "Oct 2026",
-      result: "3등상 · 전체 5위 · 6개 대학 SW중심대학사업단",
+      result: "3등상 · 전체 5위 · 경북대, 경희대, 부산대, 아주대, 전남대, 전북대 SW중심대학사업단장상",
       description: "Dr. GRPO 기반 RLVR, SRGen Test-time Scaling, Majority Voting을 적용했습니다.",
     },
     {
@@ -224,7 +224,7 @@ export const DATA = {
       title: "제4회 대학 연합 아주 소중한 딥러닝 챌린지",
       logoUrl: "/logos/kaggle.png",
       dates: "Oct 2025",
-      result: "2등상 · 전체 3위 · 6개 대학 SW중심대학사업단",
+      result: "2등상 · 전체 3위 · 경북대, 경희대, 부산대, 아주대, 전남대, 전북대 SW중심대학사업단장상",
       description: "5개 태스크 멀티태스크 학습에 CoT와 4bit QLoRA 파인튜닝을 적용했습니다.",
     },
     {
